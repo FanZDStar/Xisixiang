@@ -56,8 +56,8 @@ function handleKeydown(event) {
   display: flex;
   gap: 10px;
   padding: 12px;
-  border-top: 1px solid #ccc;
-  background-color: #f9f9f9;
+  border-top: 1px solid rgba(244, 67, 54, 0.2);
+  background-color: #fff5f5;
   align-items: flex-end;
 }
 
@@ -67,7 +67,7 @@ function handleKeydown(event) {
   min-height: 40px;
   max-height: 120px;
   padding: 10px 14px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(244, 67, 54, 0.2);
   border-radius: 20px;
   font-family: inherit;
   font-size: 14px;
@@ -76,7 +76,7 @@ function handleKeydown(event) {
 }
 
 .input-field:focus {
-  border-color: #646cff;
+  border-color: #f44336;
 }
 
 .send-button {
@@ -84,19 +84,19 @@ function handleKeydown(event) {
   padding: 0 20px;
   border: none;
   border-radius: 20px;
-  background-color: #646cff;
-  color: white;
+  background: linear-gradient(135deg, #ff7061, #f44336);
+  color: #ffffff;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .send-button:hover:not(:disabled) {
-  background-color: #535bf2;
+  filter: brightness(0.95);
 }
 
 .send-button:disabled {
-  background-color: #ccc;
+  background: #ffcdd2;
   cursor: not-allowed;
 }
 

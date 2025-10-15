@@ -44,9 +44,9 @@ watch(
   height: 400px;
   overflow-y: auto;
   padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
+  border: 1px solid rgba(244, 67, 54, 0.25);
+  border-radius: 12px;
+  background-color: #fff5f5;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -55,18 +55,26 @@ watch(
 .message {
   max-width: 80%;
   padding: 10px 14px;
-  border-radius: 18px;
+  border-radius: 18px 18px 18px 4px;
   word-wrap: break-word;
+}
+
+.message-content {
+  white-space: pre-wrap;
+  line-height: 1.5;
 }
 
 .message.user {
   align-self: flex-end;
-  background-color: #dcf8c6;
+  background: linear-gradient(135deg, #ff7061, #f44336);
+  color: #fff;
+  border-radius: 18px 18px 4px 18px;
 }
 
 .message.bot {
   align-self: flex-start;
-  background-color: #e5e5ea;
+  background-color: #ffffff;
+  border: 1px solid rgba(244, 67, 54, 0.15);
 }
 
 /* 移动端适配 */
