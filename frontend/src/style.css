@@ -1,11 +1,20 @@
 :root {
+  --primary-color: #ff3333;
+  --primary-dark: #cc0000;
+  --primary-light: #ffe6e6;
+  --secondary-color: #ff6666;
+  --text-color: #333333;
+  --text-light: #666666;
+  --background-color: #ffffff;
+  --border-color: #ffcccc;
+  
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: var(--text-color);
+  background-color: var(--background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,24 +24,25 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--primary-dark);
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: var(--primary-color);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f5f5f5;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.5em;
   line-height: 1.1;
+  color: var(--primary-dark);
 }
 
 button {
@@ -42,38 +52,59 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--primary-color);
+  color: white;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .card {
   padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* 移动端适配 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
   }
-  a:hover {
-    color: #747bff;
+  
+  .card {
+    padding: 1.5em;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8em;
+  }
+  
+  .card {
+    padding: 1em;
   }
 }
