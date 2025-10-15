@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import ChatView from '../views/ChatView.vue';
 import QuizView from '../views/QuizView.vue';
 import TheoryView from '../views/TheoryView.vue';
+import KnowledgeGraph from '../views/KnowledgeGraph.vue';
 
 const routes = [
   {
@@ -22,7 +23,23 @@ const routes = [
   {
     path: '/theory',
     name: 'Theory',
-    component: TheoryView
+    component: TheoryView,
+    children: [
+      {
+        path: '',
+        redirect: 'learning'
+      },
+      {
+        path: 'learning',
+        name: 'TheoryLearning',
+        component: TheoryView
+      },
+      {
+        path: 'knowledge-graph',
+        name: 'KnowledgeGraph',
+        component: KnowledgeGraph
+      }
+    ]
   }
 ];
 

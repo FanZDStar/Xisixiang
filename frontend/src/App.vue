@@ -1,9 +1,29 @@
 <script setup>
-// 不再需要导入 HelloWorld 组件
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const showTheoryDropdown = ref(false)
+
+// 切换理论学习中心下拉菜单显示状态
+const toggleTheoryDropdown = (event) => {
+  event.stopPropagation()
+  showTheoryDropdown.value = !showTheoryDropdown.value
+}
+
+// 点击其他地方关闭下拉菜单
+const closeDropdown = () => {
+  showTheoryDropdown.value = false
+}
+
+// 监听路由变化，关闭下拉菜单
+watch(() => route.path, () => {
+  showTheoryDropdown.value = false
+})
 </script>
 
 <template>
-  <div class="app-container">
+  <div class="app-container" @click="closeDropdown">
     <div class="content-wrapper">
       <header class="header">
         <div class="header-content">
@@ -15,7 +35,30 @@
       <nav class="navigation">
         <router-link to="/chat" class="nav-link">智能问答</router-link>
         <router-link to="/quiz" class="nav-link">习题训练</router-link>
-        <router-link to="/theory" class="nav-link">理论学习中心</router-link>
+        <div class="nav-dropdown" :class="{ active: showTheoryDropdown }">
+          <div 
+            class="nav-link dropdown-trigger" 
+            @click.stop="toggleTheoryDropdown"
+            :class="{ active: route.path.startsWith('/theory') }"
+          >
+            理论学习中心
+            <span class="arrow" :class="{ up: showTheoryDropdown }">▼</span>
+          </div>
+          <div v-if="showTheoryDropdown" class="dropdown-menu" @click.stop>
+            <router-link 
+              to="/theory/learning" 
+              class="dropdown-item"
+            >
+              理论学习
+            </router-link>
+            <router-link 
+              to="/theory/knowledge-graph" 
+              class="dropdown-item"
+            >
+              知识图谱
+            </router-link>
+          </div>
+        </div>
       </nav>
       
       <main class="main-content">
@@ -75,6 +118,8 @@
   background-color: #ffe6e6;
   border-bottom: 2px solid #ffcccc;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 100;
 }
 
 .nav-link {
@@ -86,6 +131,10 @@
   transition: all 0.3s ease;
   background-color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -99,6 +148,67 @@
   background-color: #ff3333;
   color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown.active .dropdown-trigger {
+  background-color: #ff3333;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-trigger {
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrow {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+  margin-left: 5px;
+}
+
+.arrow.up {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 150px;
+  margin-top: 5px;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdown-item:hover {
+  background-color: #ffe6e6;
+}
+
+.dropdown-item.router-link-active {
+  background-color: #ffcccc;
+  color: #cc0000;
+  font-weight: 600;
 }
 
 .main-content {
@@ -144,6 +254,15 @@
   
   .main-content {
     padding: 1rem 0.5rem;
+  }
+  
+  .dropdown-menu {
+    min-width: 120px;
+  }
+  
+  .dropdown-item {
+    padding: 10px 15px;
+    font-size: 0.9rem;
   }
 }
 

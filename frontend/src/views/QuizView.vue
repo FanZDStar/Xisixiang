@@ -82,7 +82,6 @@ onMounted(() => {
 
 <template>
   <div class="view-container">
-    <h1>习题训练系统</h1>
     
     <!-- 加载状态 -->
     <div v-if="loading" class="loading">
