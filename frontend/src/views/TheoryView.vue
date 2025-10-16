@@ -51,6 +51,21 @@ const theoryArticles = ref([
     title: "怎么理解纵深推进全国统一大市场建设",
     path: "/theory/怎么理解纵深推进全国统一大市场建设.md",
   },
+  {
+    id:4,
+    title: "张国清：构建全国统一大市场",
+    path: "/theory/构建全国统一大市场.md",
+  },
+  {
+    id:5,
+    title: "理响中国丨全国统一大市场的‘那些事’",
+    path: "/theory/全国统一大市场的那些事.md",
+  },
+  {
+    id:6,
+    title: "深化构建全国统一大市场的逻辑认识与思考",
+    path: "/theory/深化构建全国统一大市场的逻辑认识与思考.md",
+  },
 ]);
 
 const selectedArticle = ref(theoryArticles.value[0]);
