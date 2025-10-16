@@ -7,6 +7,9 @@ import BackToTop from "../components/BackToTop.vue";
 
 const route = useRoute();
 
+// 添加控制目录折叠状态的响应式变量
+const isSidebarCollapsed = ref(false);
+
 // 理论文章列表
 const theoryArticles = ref([
   {
@@ -22,6 +25,17 @@ const selectedArticle = ref(theoryArticles.value[0]);
 const isKnowledgeGraph = computed(() => {
   return route.path === "/theory/knowledge-graph";
 });
+
+// 切换侧边栏折叠状态
+const toggleSidebar = () => {
+  isSidebarCollapsed.value = !isSidebarCollapsed.value;
+};
+
+// 添加截取标题的函数，最多显示12个字
+const truncateTitle = (title, maxLength = 12) => {
+  if (!title) return '';
+  return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
+};
 </script>
 
 <template>
@@ -35,16 +49,18 @@ const isKnowledgeGraph = computed(() => {
     <div v-else>
       <div class="content-layout">
         <!-- 侧边栏 - 文章列表 -->
-        <aside class="sidebar">
-          <h2>学习目录</h2>
-          <ul class="article-list">
+        <aside class="sidebar" :class="{ collapsed: isSidebarCollapsed }">
+          <h2 @click="toggleSidebar">
+            {{ isSidebarCollapsed ? '▶' : '▼' }} 学习目录
+          </h2>
+          <ul class="article-list" v-show="!isSidebarCollapsed">
             <li
               v-for="article in theoryArticles"
               :key="article.id"
               :class="{ active: selectedArticle.id === article.id }"
               @click="selectedArticle = article"
             >
-              {{ article.title }}
+              {{ truncateTitle(article.title) }}
             </li>
           </ul>
         </aside>
@@ -84,6 +100,12 @@ const isKnowledgeGraph = computed(() => {
   border-radius: 8px;
   padding: 20px;
   height: fit-content;
+  transition: all 0.3s ease;
+}
+
+/* 折叠状态样式 */
+.sidebar.collapsed {
+  flex: 0 0 50px;
 }
 
 .sidebar h2 {
@@ -91,6 +113,15 @@ const isKnowledgeGraph = computed(() => {
   color: #f44336;
   border-bottom: 2px solid #f44336;
   padding-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.sidebar.collapsed h2 {
+  justify-content: center;
+  border-bottom: none;
 }
 
 .article-list {
@@ -104,6 +135,10 @@ const isKnowledgeGraph = computed(() => {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  /* 添加单行显示和省略号效果 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .article-list li:hover {
@@ -184,6 +219,13 @@ const isKnowledgeGraph = computed(() => {
   .main-content {
     padding: 15px;
     max-height: 55vh;
+  }
+  
+  /* 在移动端保持折叠功能 */
+  .sidebar.collapsed {
+    flex: none;
+    height: 50px;
+    padding: 10px 20px;
   }
 }
 </style>
