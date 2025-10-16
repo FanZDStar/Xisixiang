@@ -14,8 +14,13 @@ const isSidebarCollapsed = ref(false);
 const theoryArticles = ref([
   {
     id: 1,
-    title: "关于加快建设全国统一大市场的指导意见",
+    title: "中共中央国务院关于加快建设全国统一大市场的意见",
     path: "/theory/中共中央国务院关于加快建设全国统一大市场的意见.md",
+  },
+  {
+    id: 2,
+    title: "纵深推进全国统一大市场建设",
+    path: "/theory/纵深推进全国统一大市场建设.md",
   },
 ]);
 
