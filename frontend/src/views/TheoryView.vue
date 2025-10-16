@@ -1,38 +1,36 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import MarkdownRenderer from '../components/MarkdownRenderer.vue'
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+import MarkdownRenderer from "../components/MarkdownRenderer.vue";
+import KnowledgeGraph from "./KnowledgeGraph.vue";
+import BackToTop from "../components/BackToTop.vue";
 
-const route = useRoute()
+const route = useRoute();
 
 // 理论文章列表
 const theoryArticles = ref([
-  { id: 1, title: '关于加快建设全国统一大市场的指导意见', path: '/theory/中共中央国务院关于加快建设全国统一大市场的意见.md' },
-])
+  {
+    id: 1,
+    title: "关于加快建设全国统一大市场的指导意见",
+    path: "/theory/中共中央国务院关于加快建设全国统一大市场的意见.md",
+  },
+]);
 
-const selectedArticle = ref(theoryArticles.value[0])
+const selectedArticle = ref(theoryArticles.value[0]);
 
 // 判断当前是否在知识图谱页面
 const isKnowledgeGraph = computed(() => {
-  return route.path === '/theory/knowledge-graph'
-})
+  return route.path === "/theory/knowledge-graph";
+});
 </script>
 
 <template>
   <div class="theory-container">
     <!-- 知识图谱页面内容 -->
     <div v-if="isKnowledgeGraph">
-      <div class="knowledge-graph-placeholder">
-        <h1>知识图谱</h1>
-        <p class="subtitle">全国统一大市场知识图谱展示</p>
-        
-        <div class="content-placeholder">
-          <div class="placeholder-icon">📊</div>
-          <p>知识图谱内容待完善</p>
-        </div>
-      </div>
+      <KnowledgeGraph />
     </div>
-    
+
     <!-- 理论学习页面内容 -->
     <div v-else>
       <div class="content-layout">
@@ -40,8 +38,8 @@ const isKnowledgeGraph = computed(() => {
         <aside class="sidebar">
           <h2>学习目录</h2>
           <ul class="article-list">
-            <li 
-              v-for="article in theoryArticles" 
+            <li
+              v-for="article in theoryArticles"
               :key="article.id"
               :class="{ active: selectedArticle.id === article.id }"
               @click="selectedArticle = article"
@@ -50,10 +48,12 @@ const isKnowledgeGraph = computed(() => {
             </li>
           </ul>
         </aside>
-        
+
         <!-- 主内容区 - Markdown渲染 -->
         <main class="main-content">
           <MarkdownRenderer :file-path="selectedArticle.path" />
+          <!-- 返回顶部组件 -->
+          <BackToTop />
         </main>
       </div>
     </div>
@@ -121,6 +121,9 @@ const isKnowledgeGraph = computed(() => {
   border-radius: 8px;
   padding: 25px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 60vh;
+  overflow-y: auto;
+  position: relative; /* 为返回顶部组件提供定位上下文 */
 }
 
 .article-header h2 {
@@ -169,17 +172,18 @@ const isKnowledgeGraph = computed(() => {
   .content-layout {
     flex-direction: column;
   }
-  
+
   .sidebar {
     flex: none;
   }
-  
+
   .theory-container {
     padding: 15px;
   }
-  
+
   .main-content {
     padding: 15px;
+    max-height: 55vh;
   }
 }
 </style>

@@ -1,25 +1,28 @@
 <script setup>
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
-const showTheoryDropdown = ref(false)
+const route = useRoute();
+const showTheoryDropdown = ref(false);
 
 // 切换理论学习中心下拉菜单显示状态
 const toggleTheoryDropdown = (event) => {
-  event.stopPropagation()
-  showTheoryDropdown.value = !showTheoryDropdown.value
-}
+  event.stopPropagation();
+  showTheoryDropdown.value = !showTheoryDropdown.value;
+};
 
 // 点击其他地方关闭下拉菜单
 const closeDropdown = () => {
-  showTheoryDropdown.value = false
-}
+  showTheoryDropdown.value = false;
+};
 
 // 监听路由变化，关闭下拉菜单
-watch(() => route.path, () => {
-  showTheoryDropdown.value = false
-})
+watch(
+  () => route.path,
+  () => {
+    showTheoryDropdown.value = false;
+  }
+);
 </script>
 
 <template>
@@ -31,36 +34,30 @@ watch(() => route.path, () => {
           <p class="subtitle">构建全国统一大市场 —— 制度创新与公平竞争治理</p>
         </div>
       </header>
-      
+
       <nav class="navigation">
         <router-link to="/chat" class="nav-link">智能问答</router-link>
         <router-link to="/quiz" class="nav-link">习题训练</router-link>
         <div class="nav-dropdown" :class="{ active: showTheoryDropdown }">
-          <div 
-            class="nav-link dropdown-trigger" 
+          <div
+            class="nav-link dropdown-trigger"
             @click.stop="toggleTheoryDropdown"
-            :class="{ active: route.path.startsWith('/theory') }"
+            :class="{ 'router-link-active': route.path.startsWith('/theory') }"
           >
             理论学习中心
             <span class="arrow" :class="{ up: showTheoryDropdown }">▼</span>
           </div>
           <div v-if="showTheoryDropdown" class="dropdown-menu" @click.stop>
-            <router-link 
-              to="/theory/learning" 
-              class="dropdown-item"
-            >
+            <router-link to="/theory/learning" class="dropdown-item">
               理论学习
             </router-link>
-            <router-link 
-              to="/theory/knowledge-graph" 
-              class="dropdown-item"
-            >
+            <router-link to="/theory/knowledge-graph" class="dropdown-item">
               知识图谱
             </router-link>
           </div>
         </div>
       </nav>
-      
+
       <main class="main-content">
         <router-view></router-view>
       </main>
@@ -220,46 +217,46 @@ watch(() => route.path, () => {
   .app-container {
     padding: 10px;
   }
-  
+
   .content-wrapper {
     border-radius: 8px;
   }
-  
+
   .header {
     padding: 0.5rem;
     border-radius: 8px 8px 0 0;
   }
-  
+
   .header-content {
     padding: 0.5rem 0;
   }
-  
+
   .title {
     font-size: 1.5rem;
   }
-  
+
   .subtitle {
     font-size: 0.9rem;
   }
-  
+
   .navigation {
     gap: 0.5rem;
     padding: 0.5rem;
   }
-  
+
   .nav-link {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
-  
+
   .main-content {
     padding: 1rem 0.5rem;
   }
-  
+
   .dropdown-menu {
     min-width: 120px;
   }
-  
+
   .dropdown-item {
     padding: 10px 15px;
     font-size: 0.9rem;
@@ -271,19 +268,19 @@ watch(() => route.path, () => {
   .app-container {
     padding: 5px;
   }
-  
+
   .title {
     font-size: 1.3rem;
   }
-  
+
   .subtitle {
     font-size: 0.8rem;
   }
-  
+
   .navigation {
     gap: 0.3rem;
   }
-  
+
   .nav-link {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
