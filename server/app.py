@@ -41,6 +41,7 @@ def api_chat_completion():
     result, status_code = create_chat_completion(messages)
 
     if status_code == 200:
+        print("ai 回复:", result)
         return jsonify({'reply': result}), 200
     return jsonify(result), status_code
 
