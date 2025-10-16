@@ -2,8 +2,8 @@
   <div class="knowledge-graph-container">
     <!-- 页面标题 -->
     <div class="page-header">
-      <h1>习近平新时代中国特色社会主义思想知识图谱</h1>
-      <p class="subtitle">深入学习习近平新时代中国特色社会主义思想的核心要义与实践指导</p>
+      <h1>构建全国统一大市场知识图谱</h1>
+      <p class="subtitle">制度创新与公平竞争治理的理论体系与实践路径</p>
     </div>
 
     <!-- 主要内容布局 -->
@@ -18,51 +18,51 @@
         <ul class="category-list">
           <li class="category-item">
             <div class="category-header">
-              <h3>制度建设</h3>
+              <h3>制度创新</h3>
             </div>
             <ul class="subcategory-list">
               <li class="subcategory-item">
-                <span>党的制度建设</span>
+                <span>统一制度规则</span>
               </li>
               <li class="subcategory-item">
-                <span>国家制度体系</span>
+                <span>市场准入制度</span>
               </li>
               <li class="subcategory-item">
-                <span>治理体系现代化</span>
+                <span>要素配置机制</span>
               </li>
             </ul>
           </li>
           
           <li class="category-item">
             <div class="category-header">
-              <h3>竞争优势</h3>
+              <h3>公平竞争</h3>
             </div>
             <ul class="subcategory-list">
               <li class="subcategory-item">
-                <span>制度优势</span>
+                <span>反垄断治理</span>
               </li>
               <li class="subcategory-item">
-                <span>发展优势</span>
+                <span>公平竞争审查</span>
               </li>
               <li class="subcategory-item">
-                <span>文化优势</span>
+                <span>市场监管体系</span>
               </li>
             </ul>
           </li>
           
           <li class="category-item">
             <div class="category-header">
-              <h3>实践指导</h3>
+              <h3>统一治理</h3>
             </div>
             <ul class="subcategory-list">
               <li class="subcategory-item">
-                <span>经济建设</span>
+                <span>标准统一</span>
               </li>
               <li class="subcategory-item">
-                <span>社会发展</span>
+                <span>执法协调</span>
               </li>
               <li class="subcategory-item">
-                <span>生态文明</span>
+                <span>信息共享</span>
               </li>
             </ul>
           </li>
@@ -96,20 +96,20 @@
               
               <!-- 核心节点 -->
               <div class="node core-node" @click="showNodeDetail('core')">
-                <span>习近平新时代<br>中国特色社会主义思想</span>
+                <span>构建全国<br>统一大市场</span>
               </div>
               
               <!-- 分类节点 -->
               <div class="node category-node institution-node" @click="showNodeDetail('institution')">
-                <span>制度建设</span>
+                <span>制度创新</span>
               </div>
               
               <div class="node category-node competition-node" @click="showNodeDetail('competition')">
-                <span>竞争优势</span>
+                <span>公平竞争</span>
               </div>
               
               <div class="node category-node implementation-node" @click="showNodeDetail('implementation')">
-                <span>实践指导</span>
+                <span>统一治理</span>
               </div>
             </div>
           </div>
@@ -117,8 +117,8 @@
           <!-- 时间轴区域 -->
           <div class="timeline-section">
             <div class="timeline-header">
-              <h3>重要文献时间轴</h3>
-              <p>按时间顺序展示重要理论文献和政策文件</p>
+              <h3>政策文件时间轴</h3>
+              <p>按时间顺序展示全国统一大市场建设的重要政策文件</p>
             </div>
             
             <div class="timeline">
@@ -273,8 +273,8 @@ const navigateToArticle = (articleId) => {
 // 节点详情数据 - 包含真实文章链接
 const nodeDetails = {
   core: {
-    title: '习近平新时代中国特色社会主义思想',
-    description: '习近平新时代中国特色社会主义思想是马克思主义中国化时代化的最新成果，是当代中国马克思主义、二十一世纪马克思主义，是中华文化和中国精神的时代精华，实现了马克思主义中国化新的飞跃。',
+    title: '构建全国统一大市场',
+    description: '加快建设高效规范、公平竞争、充分开放的全国统一大市场，全面推动我国市场由大到强转变，为建设高标准市场体系、构建高水平社会主义市场经济体制提供坚强支撑。',
     articles: [
       { id: 1, title: '中共中央国务院关于加快建设全国统一大市场的意见', articleId: 1 },
       { id: 2, title: '纵深推进全国统一大市场建设', articleId: 2 },
@@ -282,8 +282,8 @@ const nodeDetails = {
     ]
   },
   institution: {
-    title: '制度建设',
-    description: '坚持和完善中国特色社会主义制度，推进国家治理体系和治理能力现代化，这是全党的一项重大战略任务。',
+    title: '制度创新',
+    description: '通过统一的制度规则、破除地方保护和市场分割、打通制约经济循环的关键堵点，促进商品要素资源在更大范围内畅通流动。',
     articles: [
       { id: 1, title: '中共中央国务院关于加快建设全国统一大市场的意见', articleId: 1 },
       { id: 4, title: '张国清：构建全国统一大市场', articleId: 4 },
@@ -291,8 +291,8 @@ const nodeDetails = {
     ]
   },
   competition: {
-    title: '竞争优势',
-    description: '中国特色社会主义制度具有显著优势，这些优势是我们坚定中国特色社会主义道路自信、理论自信、制度自信、文化自信的基本依据。',
+    title: '公平竞争',
+    description: '坚持公平竞争政策基础地位，健全公平竞争制度框架和政策实施机制，建立全方位、多层次、立体化监管体系，规范不当市场竞争和市场干预行为。',
     articles: [
       { id: 5, title: '理响中国丨全国统一大市场的"那些事"', articleId: 5 },
       { id: 6, title: '深化构建全国统一大市场的逻辑认识与思考', articleId: 6 },
@@ -300,8 +300,8 @@ const nodeDetails = {
     ]
   },
   implementation: {
-    title: '实践指导',
-    description: '习近平新时代中国特色社会主义思想不仅有鲜明的理论品格，更有强烈的实践品格，为新时代坚持和发展中国特色社会主义提供了科学指南。',
+    title: '统一治理',
+    description: '推进市场监管公平统一，健全统一规范的涉企优惠政策制度，完善产权保护制度，推进统一的市场监管，加强统一的社会信用体系建设。',
     articles: [
       { id: 2, title: '纵深推进全国统一大市场建设', articleId: 2 },
       { id: 3, title: '怎么理解纵深推进全国统一大市场建设', articleId: 3 },
