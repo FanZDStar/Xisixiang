@@ -18,7 +18,7 @@
         <ul class="category-list">
           <li class="category-item">
             <div class="category-header">
-              <h3>🏛️ 制度建设</h3>
+              <h3>制度建设</h3>
             </div>
             <ul class="subcategory-list">
               <li class="subcategory-item">
@@ -35,7 +35,7 @@
           
           <li class="category-item">
             <div class="category-header">
-              <h3>🏆 竞争优势</h3>
+              <h3>竞争优势</h3>
             </div>
             <ul class="subcategory-list">
               <li class="subcategory-item">
@@ -52,7 +52,7 @@
           
           <li class="category-item">
             <div class="category-header">
-              <h3>⚡ 实践指导</h3>
+              <h3>实践指导</h3>
             </div>
             <ul class="subcategory-list">
               <li class="subcategory-item">
@@ -117,7 +117,7 @@
           <!-- 时间轴区域 -->
           <div class="timeline-section">
             <div class="timeline-header">
-              <h3>📚 重要文献时间轴</h3>
+              <h3>重要文献时间轴</h3>
               <p>按时间顺序展示重要理论文献和政策文件</p>
             </div>
             
