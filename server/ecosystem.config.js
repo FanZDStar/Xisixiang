@@ -1,8 +1,8 @@
 module.exports = {
   apps: [{
-    name: 'xisixiang-backend',
+    name: 'xisixiang-server',
     script: 'app.py',
-    interpreter: 'python3',
+    interpreter: './venv/bin/python3',  // 使用虚拟环境中的 Python 解释器
     instances: 1,
     autorestart: true,
     watch: false,
