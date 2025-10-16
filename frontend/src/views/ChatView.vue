@@ -72,7 +72,6 @@ const handleQuickQuestion = (question) => {
 <template>
   <div class="view-container">
     <div class="chat-header">
-      <div class="header-icon">💬</div>
       <h1>智能问答中心</h1>
       <p class="description">
         专业解读"构建全国统一大市场"政策，为您提供权威、详实的答疑服务
@@ -131,11 +130,7 @@ const handleQuickQuestion = (question) => {
   color: #f44336;
 }
 
-.header-icon {
-  font-size: 3rem;
-  margin-bottom: 12px;
-  animation: float 3s ease-in-out infinite;
-}
+
 
 @keyframes float {
   0%,
@@ -283,10 +278,6 @@ const handleQuickQuestion = (question) => {
     padding: 15px;
   }
 
-  .header-icon {
-    font-size: 2.5rem;
-    margin-bottom: 8px;
-  }
 
   .chat-header h1 {
     font-size: 1.6rem;

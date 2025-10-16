@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed, defineAsyncComponent, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { ref, computed, defineAsyncComponent, onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { createLazyComponent, preloadResources } from "../utils/lazyLoad.js";
 import LoadingComponent from "../components/LoadingComponent.vue";
 
@@ -10,7 +10,7 @@ const MarkdownRenderer = createLazyComponent(
   {
     loadingComponent: LoadingComponent,
     delay: 200,
-    timeout: 5000
+    timeout: 5000,
   }
 );
 
@@ -18,18 +18,19 @@ const KnowledgeGraph = createLazyComponent(
   () => import("./KnowledgeGraph.vue"),
   {
     loadingComponent: LoadingComponent,
-    delay: 200
+    delay: 200,
   }
 );
 
 const BackToTop = createLazyComponent(
   () => import("../components/BackToTop.vue"),
   {
-    delay: 100 // 返回顶部组件不需要loading，快速加载
+    delay: 100, // 返回顶部组件不需要loading，快速加载
   }
 );
 
 const route = useRoute();
+const router = useRouter();
 
 // 添加控制目录折叠状态的响应式变量
 const isSidebarCollapsed = ref(false);
@@ -47,28 +48,59 @@ const theoryArticles = ref([
     path: "/theory/纵深推进全国统一大市场建设.md",
   },
   {
-    id:3,
+    id: 3,
     title: "怎么理解纵深推进全国统一大市场建设",
     path: "/theory/怎么理解纵深推进全国统一大市场建设.md",
   },
   {
-    id:4,
+    id: 4,
     title: "张国清：构建全国统一大市场",
     path: "/theory/构建全国统一大市场.md",
   },
   {
-    id:5,
+    id: 5,
     title: "理响中国丨全国统一大市场的‘那些事’",
     path: "/theory/全国统一大市场的那些事.md",
   },
   {
-    id:6,
+    id: 6,
     title: "深化构建全国统一大市场的逻辑认识与思考",
     path: "/theory/深化构建全国统一大市场的逻辑认识与思考.md",
+  },
+  {
+    id: 7,
+    title: "中国发布丨国家发展改革委：将制定《妨碍统一市场和公平竞争行为防范事项清单》",
+    path: "/theory/将制定《妨碍统一市场和公平竞争行为防范事项清单》.md",
+  },
+  {
+    id: 8,
+    title: "全国统一大市场建设指引（试行）",
+    path: "/theory/全国统一大市场建设指引（试行）.md",
   },
 ]);
 
 const selectedArticle = ref(theoryArticles.value[0]);
+
+// 根据路由参数同步选中文章
+const syncSelectedFromRoute = () => {
+  const idParam = route.query.article;
+  if (!idParam) return;
+  const id = Number(idParam);
+  const found = theoryArticles.value.find(a => a.id === id);
+  if (found) {
+    selectedArticle.value = found;
+  }
+};
+
+// 选择文章并写入路由参数
+const selectArticle = (article) => {
+  if (!article) return;
+  selectedArticle.value = article;
+  router.replace({
+    path: "/theory",
+    query: { article: article.id }
+  });
+};
 
 // 判断当前是否在知识图谱页面
 const isKnowledgeGraph = computed(() => {
@@ -82,17 +114,26 @@ const toggleSidebar = () => {
 
 // 添加截取标题的函数，最多显示12个字
 const truncateTitle = (title, maxLength = 12) => {
-  if (!title) return '';
-  return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
+  if (!title) return "";
+  return title.length > maxLength
+    ? title.substring(0, maxLength) + "..."
+    : title;
 };
 
 // 预加载理论文章资源
 onMounted(() => {
   // 预加载所有理论文章
-  const articlePaths = theoryArticles.value.map(article => article.path);
+  const articlePaths = theoryArticles.value.map((article) => article.path);
   preloadResources(articlePaths);
-  
-  console.log('预加载理论文章:', articlePaths);
+
+  console.log("预加载理论文章:", articlePaths);
+  // 初始同步选中项
+  syncSelectedFromRoute();
+});
+
+// 监听路由参数变化，保持选中同步
+watch(() => route.query.article, () => {
+  syncSelectedFromRoute();
 });
 </script>
 
@@ -109,14 +150,14 @@ onMounted(() => {
         <!-- 侧边栏 - 文章列表 -->
         <aside class="sidebar" :class="{ collapsed: isSidebarCollapsed }">
           <h2 @click="toggleSidebar">
-            {{ isSidebarCollapsed ? '▶' : '▼' }} 学习目录
+            {{ isSidebarCollapsed ? "▶" : "▼" }} 学习目录
           </h2>
           <ul class="article-list" v-show="!isSidebarCollapsed">
             <li
               v-for="article in theoryArticles"
               :key="article.id"
               :class="{ active: selectedArticle.id === article.id }"
-              @click="selectedArticle = article"
+              @click="selectArticle(article)"
             >
               {{ truncateTitle(article.title) }}
             </li>
@@ -216,7 +257,7 @@ onMounted(() => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: 60vh;
   overflow-y: auto;
-  position: relative; /* 为返回顶部组件提供定位上下文 */
+  position: relative; 
 }
 
 .article-header h2 {
@@ -278,7 +319,7 @@ onMounted(() => {
     padding: 15px;
     max-height: 55vh;
   }
-  
+
   /* 在移动端保持折叠功能 */
   .sidebar.collapsed {
     flex: none;
