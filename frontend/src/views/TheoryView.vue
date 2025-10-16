@@ -1,9 +1,33 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, defineAsyncComponent, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import MarkdownRenderer from "../components/MarkdownRenderer.vue";
-import KnowledgeGraph from "./KnowledgeGraph.vue";
-import BackToTop from "../components/BackToTop.vue";
+import { createLazyComponent, preloadResources } from "../utils/lazyLoad.js";
+import LoadingComponent from "../components/LoadingComponent.vue";
+
+// 使用优化的懒加载组件
+const MarkdownRenderer = createLazyComponent(
+  () => import("../components/MarkdownRenderer.vue"),
+  {
+    loadingComponent: LoadingComponent,
+    delay: 200,
+    timeout: 5000
+  }
+);
+
+const KnowledgeGraph = createLazyComponent(
+  () => import("./KnowledgeGraph.vue"),
+  {
+    loadingComponent: LoadingComponent,
+    delay: 200
+  }
+);
+
+const BackToTop = createLazyComponent(
+  () => import("../components/BackToTop.vue"),
+  {
+    delay: 100 // 返回顶部组件不需要loading，快速加载
+  }
+);
 
 const route = useRoute();
 
@@ -21,6 +45,11 @@ const theoryArticles = ref([
     id: 2,
     title: "纵深推进全国统一大市场建设",
     path: "/theory/纵深推进全国统一大市场建设.md",
+  },
+  {
+    id:3,
+    title: "怎么理解纵深推进全国统一大市场建设",
+    path: "/theory/怎么理解纵深推进全国统一大市场建设.md",
   },
 ]);
 
@@ -41,6 +70,15 @@ const truncateTitle = (title, maxLength = 12) => {
   if (!title) return '';
   return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
 };
+
+// 预加载理论文章资源
+onMounted(() => {
+  // 预加载所有理论文章
+  const articlePaths = theoryArticles.value.map(article => article.path);
+  preloadResources(articlePaths);
+  
+  console.log('预加载理论文章:', articlePaths);
+});
 </script>
 
 <template>

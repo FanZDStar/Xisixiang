@@ -1,6 +1,6 @@
 <!-- frontend/src/components/MarkdownRenderer.vue -->
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, shallowRef } from 'vue'
 import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 
@@ -11,38 +11,71 @@ const props = defineProps({
   }
 })
 
-const renderedContent = ref('')
+const renderedContent = shallowRef('') // 使用 shallowRef 提高性能
 const loading = ref(false)
 const error = ref(null)
+
+// 创建内容缓存
+const cache = new Map()
+
+// 防抖函数，避免频繁切换时重复加载
+let debounceTimer = null
+const debounceDelay = 300
 
 const renderMarkdown = async () => {
   if (!props.filePath) return
   
-  loading.value = true
-  error.value = null
+  // 清除之前的防抖定时器
+  if (debounceTimer) {
+    clearTimeout(debounceTimer)
+  }
   
-  try {
-    // 获取Markdown文件内容
-    const response = await fetch(props.filePath)
-    if (!response.ok) {
-      throw new Error(`无法加载文件: ${response.status}`)
+  // 设置新的防抖定时器
+  debounceTimer = setTimeout(async () => {
+    // 检查缓存
+    if (cache.has(props.filePath)) {
+      console.log('从缓存加载:', props.filePath)
+      renderedContent.value = cache.get(props.filePath)
+      return
     }
     
-    const markdownText = await response.text()
+    loading.value = true
+    error.value = null
     
-    // 解析Markdown为HTML
-    const rawHtml = marked(markdownText)
-    
-    // 使用DOMPurify净化HTML防止XSS攻击
-    const cleanHtml = DOMPurify.sanitize(rawHtml)
-    
-    renderedContent.value = cleanHtml
-  } catch (err) {
-    error.value = `加载失败: ${err.message}`
-    console.error('Markdown渲染错误:', err)
-  } finally {
-    loading.value = false
-  }
+    try {
+      console.log('网络加载:', props.filePath)
+      // 获取Markdown文件内容
+      const response = await fetch(props.filePath)
+      if (!response.ok) {
+        throw new Error(`无法加载文件: ${response.status}`)
+      }
+      
+      const markdownText = await response.text()
+      
+      // 解析Markdown为HTML
+      const rawHtml = marked(markdownText)
+      
+      // 使用DOMPurify净化HTML防止XSS攻击
+      const cleanHtml = DOMPurify.sanitize(rawHtml)
+      
+      // 存入缓存
+      cache.set(props.filePath, cleanHtml)
+      
+      // 限制缓存大小，防止内存泄漏
+      if (cache.size > 10) {
+        const firstKey = cache.keys().next().value
+        cache.delete(firstKey)
+        console.log('缓存已满，删除最旧的缓存项:', firstKey)
+      }
+      
+      renderedContent.value = cleanHtml
+    } catch (err) {
+      error.value = `加载失败: ${err.message}`
+      console.error('Markdown渲染错误:', err)
+    } finally {
+      loading.value = false
+    }
+  }, debounceDelay)
 }
 
 // 监听文件路径变化

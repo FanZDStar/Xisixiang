@@ -5,22 +5,34 @@ const showButton = ref(false)
 let scrollContainer = null
 const buttonPosition = ref({ bottom: '20px', right: '20px' })
 
-// 检查滚动位置
+// 检查滚动位置 - 使用节流优化性能
+let throttleTimer = null
 const checkScroll = () => {
-  if (scrollContainer) {
-    showButton.value = scrollContainer.scrollTop > 100 // 降低阈值便于测试
-  }
+  if (throttleTimer) return
+  
+  throttleTimer = setTimeout(() => {
+    if (scrollContainer) {
+      showButton.value = scrollContainer.scrollTop > 100
+    }
+    throttleTimer = null
+  }, 100) // 100ms 节流
 }
 
-// 计算按钮位置（相对于.main-content容器的右下角）
+// 计算按钮位置（相对于.main-content容器的右下角） - 使用节流优化性能
+let positionThrottleTimer = null
 const updateButtonPosition = () => {
-  if (scrollContainer) {
-    const rect = scrollContainer.getBoundingClientRect()
-    buttonPosition.value = {
-      bottom: `${window.innerHeight - rect.bottom + 20}px`,
-      right: `${window.innerWidth - rect.right + 20}px`
+  if (positionThrottleTimer) return
+  
+  positionThrottleTimer = setTimeout(() => {
+    if (scrollContainer) {
+      const rect = scrollContainer.getBoundingClientRect()
+      buttonPosition.value = {
+        bottom: `${window.innerHeight - rect.bottom + 20}px`,
+        right: `${window.innerWidth - rect.right + 20}px`
+      }
     }
-  }
+    positionThrottleTimer = null
+  }, 100) // 100ms 节流
 }
 
 // 滚动到顶部
