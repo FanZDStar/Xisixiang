@@ -4,10 +4,15 @@ const BASE_URL = "http://127.0.0.1:5122"; // 开发环境
 
 export function request(options) {
   return new Promise((resolve, reject) => {
-    uni.showLoading({
-      title: "加载中...",
-      mask: true,
-    });
+    // 是否显示加载提示（默认不显示，避免与页面自定义加载动画冲突）
+    const showLoading = options.showLoading !== false;
+
+    if (showLoading && !options.silent) {
+      uni.showLoading({
+        title: options.loadingText || "加载中...",
+        mask: true,
+      });
+    }
 
     uni.request({
       url: BASE_URL + options.url,
@@ -18,7 +23,9 @@ export function request(options) {
         ...options.header,
       },
       success: (res) => {
-        uni.hideLoading();
+        if (showLoading && !options.silent) {
+          uni.hideLoading();
+        }
         if (res.statusCode === 200) {
           resolve(res.data);
         } else {
@@ -26,23 +33,29 @@ export function request(options) {
         }
       },
       fail: (err) => {
-        uni.hideLoading();
-        uni.showToast({
-          title: "网络请求失败",
-          icon: "none",
-        });
+        if (showLoading && !options.silent) {
+          uni.hideLoading();
+        }
+        if (!options.silent) {
+          uni.showToast({
+            title: "网络请求失败",
+            icon: "none",
+          });
+        }
         reject(err);
       },
     });
   });
 }
 
-// 智能问答 API
+// 智能问答 API（禁用默认加载提示，使用页面自定义动画）
 export function chatCompletion(messages) {
   return request({
     url: "/api/chat",
     method: "POST",
     data: { messages },
+    showLoading: false, // 禁用默认加载圈，使用页面的加载动画
+    silent: true, // 静默模式，不显示错误提示（由页面处理）
   });
 }
 

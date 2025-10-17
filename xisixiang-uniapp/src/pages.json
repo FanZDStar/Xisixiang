@@ -42,9 +42,10 @@
     }
   ],
   "tabBar": {
-    "color": "#666666",
+    "color": "#999999",
     "selectedColor": "#ff4d4d",
     "backgroundColor": "#ffffff",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/chat/chat",

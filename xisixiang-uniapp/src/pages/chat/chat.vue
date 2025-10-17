@@ -135,25 +135,74 @@ const scrollToBottom = () => {
   scrollIntoView.value = "msg-" + (messages.value.length - 1);
 };
 
-// 简化的 Markdown 渲染（小程序不支持完整 HTML）
+// 改进的 Markdown 渲染（小程序版）
 const formatMarkdown = (text) => {
   if (!text) return "";
 
+  // 转义 HTML 特殊字符（除了我们要保留的标签）
   let html = text
-    // 加粗
+    // 先处理代码块（保护其中的特殊字符）
+    .replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
+      const escapedCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return `<div style="background: #f5f5f5; padding: 10px; border-radius: 8px; margin: 10px 0; font-family: monospace; font-size: 24rpx; overflow-x: auto;">${escapedCode}</div>`;
+    })
+    // 行内代码
+    .replace(
+      /`([^`]+)`/g,
+      '<code style="background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #e83e8c;">$1</code>'
+    )
+    // 标题（h3, h2, h1）
+    .replace(
+      /^### (.+)$/gm,
+      '<div style="font-size: 32rpx; font-weight: bold; color: #ff4d4d; margin: 15px 0;">$1</div>'
+    )
+    .replace(
+      /^## (.+)$/gm,
+      '<div style="font-size: 36rpx; font-weight: bold; color: #ff4d4d; margin: 18px 0;">$1</div>'
+    )
+    .replace(
+      /^# (.+)$/gm,
+      '<div style="font-size: 40rpx; font-weight: bold; color: #ff4d4d; margin: 20px 0;">$1</div>'
+    )
+    // 加粗（支持中英文）
     .replace(
       /\*\*(.+?)\*\*/g,
-      '<strong style="color: #ff4d4d; font-weight: bold;">$1</strong>'
+      '<span style="color: #ff4d4d; font-weight: bold;">$1</span>'
     )
-    // 列表项
+    // 斜体
+    .replace(/\*(.+?)\*/g, '<i style="font-style: italic;">$1</i>')
+    // 有序列表（数字开头）
+    .replace(
+      /^\d+\.\s+(.+)$/gm,
+      '<div style="padding-left: 20px; margin: 8px 0; line-height: 1.6;">• $1</div>'
+    )
+    // 无序列表（•、-、* 开头）
     .replace(
       /^[•\-\*]\s+(.+)$/gm,
-      '<text style="display: block; margin: 5px 0;">• $1</text>'
+      '<div style="padding-left: 20px; margin: 8px 0; line-height: 1.6;">• $1</div>'
     )
-    // 换行
+    // 引用块
+    .replace(
+      /^>\s+(.+)$/gm,
+      '<div style="border-left: 4px solid #ff4d4d; padding-left: 15px; margin: 10px 0; color: #666; font-style: italic;">$1</div>'
+    )
+    // 链接（显示为文本）
+    .replace(
+      /\[([^\]]+)\]\(([^)]+)\)/g,
+      '<span style="color: #ff4d4d; text-decoration: underline;">$1</span>'
+    )
+    // 分割线
+    .replace(
+      /^---$/gm,
+      '<div style="border-bottom: 2px solid #eee; margin: 15px 0;"></div>'
+    )
+    // 段落（双换行）
+    .replace(/\n\n/g, '</div><div style="margin: 12px 0;">')
+    // 单换行
     .replace(/\n/g, "<br/>");
 
-  return html;
+  // 包装在一个容器中
+  return `<div style="line-height: 1.8; word-wrap: break-word;">${html}</div>`;
 };
 </script>
 
