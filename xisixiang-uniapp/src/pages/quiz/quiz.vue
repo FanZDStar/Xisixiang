@@ -100,7 +100,13 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { onShow } from "@dcloudio/uni-app";
 import { getRandomQuiz } from "../utils/request.js";
+
+// 页面显示时更新 TabBar 状态
+onShow(() => {
+  uni.$emit("updateTabBar");
+});
 
 const questions = ref([]);
 const currentIndex = ref(0);

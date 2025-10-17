@@ -38,9 +38,11 @@ const tabList = [
   },
 ];
 
-onMounted(() => {
-  // 获取当前页面路径
+// 更新当前选中的 tab (可以被外部调用)
+const updateCurrentIndex = () => {
   const pages = getCurrentPages();
+  if (pages.length === 0) return;
+
   const currentPage = pages[pages.length - 1];
   const route = "/" + currentPage.route;
 
@@ -50,14 +52,25 @@ onMounted(() => {
       currentIndex.value = index;
     }
   });
+};
+
+onMounted(() => {
+  updateCurrentIndex();
+
+  // 监听自定义事件,用于页面切换时更新状态
+  uni.$on("updateTabBar", updateCurrentIndex);
 });
 
 const switchTab = (index) => {
   if (currentIndex.value === index) return;
 
-  currentIndex.value = index;
+  // 先跳转页面
   uni.switchTab({
     url: tabList[index].pagePath,
+    success: () => {
+      // 跳转成功后触发更新事件
+      uni.$emit("updateTabBar");
+    },
   });
 };
 </script>

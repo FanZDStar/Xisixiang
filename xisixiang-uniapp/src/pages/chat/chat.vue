@@ -74,6 +74,7 @@
 
 <script setup>
 import { ref, nextTick } from "vue";
+import { onShow } from "@dcloudio/uni-app";
 import { chatCompletion } from "../utils/request.js";
 import { marked } from "marked";
 
@@ -81,6 +82,11 @@ import { marked } from "marked";
 marked.setOptions({
   breaks: true, // 支持换行符转换为 <br>
   gfm: true, // 启用 GitHub 风格的 Markdown
+});
+
+// 页面显示时更新 TabBar 状态
+onShow(() => {
+  uni.$emit("updateTabBar");
 });
 
 const messages = ref([

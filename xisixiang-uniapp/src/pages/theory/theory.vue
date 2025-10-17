@@ -39,6 +39,13 @@
 </template>
 
 <script setup>
+import { onShow } from "@dcloudio/uni-app";
+
+// 页面显示时更新 TabBar 状态
+onShow(() => {
+  uni.$emit("updateTabBar");
+});
+
 const documents = [
   {
     title: "中共中央国务院关于加快建设全国统一大市场的意见",
