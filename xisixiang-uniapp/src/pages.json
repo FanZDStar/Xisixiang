@@ -52,15 +52,15 @@
     "list": [
       {
         "pagePath": "pages/chat/chat",
-        "text": "💬 智能问答"
+        "text": "智能问答"
       },
       {
         "pagePath": "pages/quiz/quiz",
-        "text": "📝 习题训练"
+        "text": "习题训练"
       },
       {
         "pagePath": "pages/theory/theory",
-        "text": "📚 理论学习"
+        "text": "理论学习"
       }
     ]
   },

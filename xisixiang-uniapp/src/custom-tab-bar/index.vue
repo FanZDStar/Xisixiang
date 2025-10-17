@@ -23,17 +23,14 @@ const currentIndex = ref(0);
 const tabList = [
   {
     pagePath: "/pages/chat/chat",
-    emoji: "💬",
     text: "智能问答",
   },
   {
     pagePath: "/pages/quiz/quiz",
-    emoji: "📝",
     text: "习题训练",
   },
   {
     pagePath: "/pages/theory/theory",
-    emoji: "📚",
     text: "理论学习",
   },
 ];

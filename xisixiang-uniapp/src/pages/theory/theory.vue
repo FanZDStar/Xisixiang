@@ -5,7 +5,7 @@
 
     <!-- 顶部标题 -->
     <view class="page-header">
-      <text class="header-title">📚 理论学习中心</text>
+      <text class="header-title">◆ 理论学习中心</text>
       <text class="header-subtitle">深入学习全国统一大市场理论</text>
     </view>
 
@@ -17,23 +17,18 @@
         class="document-card"
         @click="openDocument(doc)"
       >
-        <view class="card-icon">📄</view>
+        <view class="card-icon">◆</view>
         <view class="card-content">
           <text class="card-title">{{ doc.title }}</text>
           <text class="card-description">{{ doc.description }}</text>
         </view>
-        <view class="card-arrow">→</view>
+        <view class="card-arrow">▶</view>
       </view>
     </view>
 
-    <!-- 知识图谱入口 -->
-    <view class="knowledge-graph-entry" @click="goToKnowledgeGraph">
-      <view class="entry-icon">🗺️</view>
-      <view class="entry-content">
-        <text class="entry-title">知识图谱</text>
-        <text class="entry-subtitle">可视化理论关系</text>
-      </view>
-      <view class="entry-arrow">→</view>
+    <!-- 悬浮按钮 - 知识图谱入口 -->
+    <view class="floating-button" @click="goToKnowledgeGraph">
+      <image class="button-icon" src="/static/goto.png" mode="aspectFit"></image>
     </view>
   </view>
 </template>
@@ -146,6 +141,7 @@ const goToKnowledgeGraph = () => {
 .card-icon {
   font-size: 50rpx;
   margin-right: 25rpx;
+  color: #ff4d4d;
 }
 
 .card-content {
@@ -174,45 +170,60 @@ const goToKnowledgeGraph = () => {
   margin-left: 20rpx;
 }
 
-.knowledge-graph-entry {
+/* 悬浮按钮样式 */
+.floating-button {
+  position: fixed;
+  right: 40rpx;
+  bottom: 180rpx;
+  width: 110rpx;
+  height: 110rpx;
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #ff4d4d, #cc0000);
-  border-radius: 20rpx;
-  padding: 35rpx;
-  box-shadow: 0 8rpx 25rpx rgba(255, 77, 77, 0.3);
+  justify-content: center;
+  box-shadow: 0 10rpx 30rpx rgba(255, 77, 77, 0.4);
+  z-index: 999;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
 }
 
-.knowledge-graph-entry:active {
-  transform: scale(0.98);
+.floating-button:active {
+  transform: scale(0.92);
+  box-shadow: 0 4rpx 15rpx rgba(255, 77, 77, 0.6);
 }
 
-.entry-icon {
-  font-size: 60rpx;
-  margin-right: 25rpx;
+.button-icon {
+  width: 50rpx;
+  height: 50rpx;
+  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.2));
 }
 
-.entry-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+/* 脉冲动画效果 */
+.floating-button::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.3;
+  z-index: -1;
+  animation: pulse 2s infinite;
 }
 
-.entry-title {
-  font-size: 34rpx;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 8rpx;
-}
-
-.entry-subtitle {
-  font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.entry-arrow {
-  font-size: 40rpx;
-  color: white;
-  margin-left: 20rpx;
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
 }
 </style>

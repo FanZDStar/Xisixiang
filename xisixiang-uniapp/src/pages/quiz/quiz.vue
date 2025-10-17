@@ -60,15 +60,23 @@
           </view>
         </view>
 
-        <!-- 解析 -->
-        <view v-if="submitted" class="explanation-card">
+        <!-- 解析区域 - 预留固定位置 -->
+        <view 
+          :class="[
+            'explanation-card',
+            { 'disabled-explanation': !submitted }
+          ]"
+        >
           <view class="explanation-header">
             <text class="icon">💡</text>
             <text class="title">答案解析</text>
           </view>
-          <text class="explanation-text">{{
+          <text v-if="submitted" class="explanation-text">{{
             currentQuestion.explanation
           }}</text>
+          <text v-else class="explanation-placeholder">
+            提交答案后查看解析
+          </text>
         </view>
 
         <!-- 操作按钮 -->
@@ -191,14 +199,24 @@ const nextQuestion = () => {
 
 const showResult = () => {
   const percentage = Math.round((score.value / questions.value.length) * 100);
-  let emoji = "💯";
-  if (percentage < 60) emoji = "😔";
-  else if (percentage < 80) emoji = "😊";
-  else if (percentage < 100) emoji = "🎉";
+  let message = "";
+  
+  // 根据正确率显示不同鼓励语句
+  if (percentage === 100) {
+    message = "太棒了！全部答对了，你真是个学霸！";
+  } else if (percentage >= 80) {
+    message = "做得很好！继续保持，你正在进步的路上！";
+  } else if (percentage >= 60) {
+    message = "不错哦！再努力一点就能取得更好的成绩！";
+  } else if (percentage >= 40) {
+    message = "还有提升空间，继续加油！";
+  } else {
+    message = "不要气馁，多练习几次一定会更好！";
+  }
 
   uni.showModal({
-    title: `${emoji} 测试完成`,
-    content: `您的得分：${score.value} / ${questions.value.length}\n正确率：${percentage}%`,
+    title: "测试完成",
+    content: `您的得分：${score.value} / ${questions.value.length}\n正确率：${percentage}%\n\n${message}`,
     showCancel: true,
     cancelText: "结束",
     confirmText: "再来一次",
@@ -386,10 +404,17 @@ const showResult = () => {
 }
 
 .explanation-card {
+  min-height: 180rpx; /* 预留固定高度避免页面跳动 */
   padding: 30rpx;
   background: linear-gradient(135deg, #fff3e0, #ffe8cc);
   border-radius: 20rpx;
   margin-bottom: 30rpx;
+  transition: all 0.3s ease;
+}
+
+.explanation-card.disabled-explanation {
+  background: #f5f5f5;
+  opacity: 0.7;
 }
 
 .explanation-header {
@@ -413,6 +438,13 @@ const showResult = () => {
   color: #666;
   line-height: 1.8;
   font-size: 26rpx;
+}
+
+.explanation-placeholder {
+  color: #999;
+  line-height: 1.8;
+  font-size: 26rpx;
+  font-style: italic;
 }
 
 .actions {
