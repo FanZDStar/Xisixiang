@@ -31,7 +31,7 @@
           <view v-if="msg.sender === 'bot'" class="bot-avatar">🤖</view>
           <view class="message-content">
             <text v-if="msg.sender === 'user'">{{ msg.text }}</text>
-            <rich-text v-else :nodes="formatMarkdown(msg.text)"></rich-text>
+            <mp-html v-else :content="msg.text" :selectable="true" />
           </view>
           <view v-if="msg.sender === 'user'" class="user-avatar">👤</view>
         </view>
@@ -72,11 +72,20 @@
 <script setup>
 import { ref, nextTick } from "vue";
 import { chatCompletion } from "../utils/request.js";
+import { marked } from "marked";
+
+// 配置 marked
+marked.setOptions({
+  breaks: true, // 支持换行符转换为 <br>
+  gfm: true, // 启用 GitHub 风格的 Markdown
+});
 
 const messages = ref([
   {
     sender: "bot",
-    text: "您好！👋 我是**习思想智能助手**\n\n我可以帮您：\n• 📖 解读全国统一大市场政策\n• 💡 解答理论学习问题\n• 🎯 分析重点难点\n\n请随时向我提问！",
+    text: marked(
+      "您好！👋 我是**习思想智能助手**\n\n我可以帮您：\n- 📖 解读全国统一大市场政策\n- 💡 解答理论学习问题\n- 🎯 分析重点难点\n\n请随时向我提问！"
+    ),
   },
 ]);
 
@@ -111,13 +120,15 @@ const sendMessage = async () => {
     const res = await chatCompletion(payload);
     messages.value.push({
       sender: "bot",
-      text: res.reply || "抱歉，我暂时无法回答这个问题。",
+      text: marked(res.reply || "抱歉，我暂时无法回答这个问题。"),
     });
   } catch (error) {
     console.error("Chat error:", error);
     messages.value.push({
       sender: "bot",
-      text: "❌ **服务暂时不可用**\n\n请检查：\n• 网络连接是否正常\n• 后端服务是否启动\n\n请稍后再试。",
+      text: marked(
+        "❌ **服务暂时不可用**\n\n请检查：\n- 网络连接是否正常\n- 后端服务是否启动\n\n请稍后再试。"
+      ),
     });
   } finally {
     loading.value = false;
@@ -133,76 +144,6 @@ const askQuestion = (question) => {
 
 const scrollToBottom = () => {
   scrollIntoView.value = "msg-" + (messages.value.length - 1);
-};
-
-// 改进的 Markdown 渲染（小程序版）
-const formatMarkdown = (text) => {
-  if (!text) return "";
-
-  // 转义 HTML 特殊字符（除了我们要保留的标签）
-  let html = text
-    // 先处理代码块（保护其中的特殊字符）
-    .replace(/```(\w+)?\n([\s\S]+?)```/g, (match, lang, code) => {
-      const escapedCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      return `<div style="background: #f5f5f5; padding: 10px; border-radius: 8px; margin: 10px 0; font-family: monospace; font-size: 24rpx; overflow-x: auto;">${escapedCode}</div>`;
-    })
-    // 行内代码
-    .replace(
-      /`([^`]+)`/g,
-      '<code style="background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #e83e8c;">$1</code>'
-    )
-    // 标题（h3, h2, h1）
-    .replace(
-      /^### (.+)$/gm,
-      '<div style="font-size: 32rpx; font-weight: bold; color: #ff4d4d; margin: 15px 0;">$1</div>'
-    )
-    .replace(
-      /^## (.+)$/gm,
-      '<div style="font-size: 36rpx; font-weight: bold; color: #ff4d4d; margin: 18px 0;">$1</div>'
-    )
-    .replace(
-      /^# (.+)$/gm,
-      '<div style="font-size: 40rpx; font-weight: bold; color: #ff4d4d; margin: 20px 0;">$1</div>'
-    )
-    // 加粗（支持中英文）
-    .replace(
-      /\*\*(.+?)\*\*/g,
-      '<span style="color: #ff4d4d; font-weight: bold;">$1</span>'
-    )
-    // 斜体
-    .replace(/\*(.+?)\*/g, '<i style="font-style: italic;">$1</i>')
-    // 有序列表（数字开头）
-    .replace(
-      /^\d+\.\s+(.+)$/gm,
-      '<div style="padding-left: 20px; margin: 8px 0; line-height: 1.6;">• $1</div>'
-    )
-    // 无序列表（•、-、* 开头）
-    .replace(
-      /^[•\-\*]\s+(.+)$/gm,
-      '<div style="padding-left: 20px; margin: 8px 0; line-height: 1.6;">• $1</div>'
-    )
-    // 引用块
-    .replace(
-      /^>\s+(.+)$/gm,
-      '<div style="border-left: 4px solid #ff4d4d; padding-left: 15px; margin: 10px 0; color: #666; font-style: italic;">$1</div>'
-    )
-    // 链接（显示为文本）
-    .replace(
-      /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<span style="color: #ff4d4d; text-decoration: underline;">$1</span>'
-    )
-    // 分割线
-    .replace(
-      /^---$/gm,
-      '<div style="border-bottom: 2px solid #eee; margin: 15px 0;"></div>'
-    )
-    // 段落（双换行）
-    .replace(/\n\n/g, '</div><div style="margin: 12px 0;">')
-    // 单换行
-    .replace(/\n/g, "<br/>");
-
-  // 包装在一个容器中
-  return `<div style="line-height: 1.8; word-wrap: break-word;">${html}</div>`;
 };
 </script>
 

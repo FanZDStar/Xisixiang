@@ -51,9 +51,9 @@ def api_chat_completion():
 def serve_theory_file(filename):
     """提供 Markdown 文档静态文件服务"""
     try:
-        # 获取 frontend/public/theory 目录的绝对路径
-        theory_dir = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'public', 'theory')
-        theory_dir = os.path.abspath(theory_dir)
+        # 使用相对路径，相对于当前文件所在目录
+        # server/document/theory/ 目录
+        theory_dir = os.path.join(os.path.dirname(__file__), 'document', 'theory')
         
         print(f"[静态文件] 请求文件: {filename}")
         print(f"[静态文件] 目录: {theory_dir}")
