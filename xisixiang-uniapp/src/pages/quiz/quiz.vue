@@ -1,5 +1,8 @@
 <template>
   <view class="quiz-page">
+    <!-- 自定义 TabBar -->
+    <custom-tab-bar />
+
     <!-- 加载状态 -->
     <view v-if="loading" class="loading-container">
       <view class="loading-spinner"></view>
@@ -216,6 +219,7 @@ const showResult = () => {
 .quiz-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #fff5f5, #f5f5f5);
+  padding-bottom: 120rpx; /* 为自定义 TabBar 预留空间 */
 }
 
 .loading-container {

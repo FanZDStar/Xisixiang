@@ -1,5 +1,8 @@
 <template>
   <view class="chat-page">
+    <!-- 自定义 TabBar -->
+    <custom-tab-bar />
+
     <!-- 快捷问题 -->
     <view v-if="messages.length === 1" class="quick-questions">
       <view
@@ -153,6 +156,7 @@ const scrollToBottom = () => {
   flex-direction: column;
   height: 100vh;
   background-color: #f5f5f5;
+  padding-bottom: 120rpx; /* 为自定义 TabBar 预留空间 */
 }
 
 .quick-questions {

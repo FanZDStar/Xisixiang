@@ -1,5 +1,8 @@
 <template>
   <view class="theory-page">
+    <!-- 自定义 TabBar -->
+    <custom-tab-bar />
+
     <!-- 顶部标题 -->
     <view class="page-header">
       <text class="header-title">📚 理论学习中心</text>
@@ -90,6 +93,7 @@ const goToKnowledgeGraph = () => {
   min-height: 100vh;
   background: linear-gradient(135deg, #fff5f5, #f5f5f5);
   padding: 20rpx;
+  padding-bottom: 140rpx; /* 为自定义 TabBar 预留更多空间 */
 }
 
 .page-header {
