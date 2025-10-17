@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
+import os
 
 from chat_api import create_chat_completion
 from quiz_api import get_all_questions, get_random_quiz, get_question_detail
@@ -44,6 +45,26 @@ def api_chat_completion():
         print("ai 回复:", result)
         return jsonify({'reply': result}), 200
     return jsonify(result), status_code
+
+# 静态文件服务 - 提供理论学习文档
+@app.route('/static/theory/<path:filename>', methods=['GET'])
+def serve_theory_file(filename):
+    """提供 Markdown 文档静态文件服务"""
+    try:
+        # 获取 frontend/public/theory 目录的绝对路径
+        theory_dir = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'public', 'theory')
+        theory_dir = os.path.abspath(theory_dir)
+        
+        print(f"[静态文件] 请求文件: {filename}")
+        print(f"[静态文件] 目录: {theory_dir}")
+        
+        return send_from_directory(theory_dir, filename, mimetype='text/markdown; charset=utf-8')
+    except FileNotFoundError:
+        print(f"[静态文件] 文件不存在: {filename}")
+        return jsonify({'error': '文件不存在'}), 404
+    except Exception as e:
+        print(f"[静态文件] 错误: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5122)
