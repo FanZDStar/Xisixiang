@@ -1,6 +1,6 @@
 // utils/request.js
-const BASE_URL = "http://127.0.0.1:5122"; // 开发环境
-// const BASE_URL = 'https://your-domain.com'; // 生产环境
+//const BASE_URL = "http://127.0.0.1:5122"; // 开发环境
+const BASE_URL = 'https://xisixiang.nuyoahming.xyz'; // 生产环境
 
 export function request(options) {
   return new Promise((resolve, reject) => {
