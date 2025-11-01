@@ -278,7 +278,7 @@ const getArticleFileName = (articleId) => {
   display: block;
   font-size: 42rpx;
   font-weight: bold;
-  color: #f44336;
+  color: #ff4d4d;
   margin-bottom: 15rpx;
 }
 
@@ -294,12 +294,12 @@ const getArticleFileName = (articleId) => {
   gap: 30rpx;
 }
 
-/* 知识图谱可视化区域 */
+/* 知识图谱可视化区域 - 简化版 */
 .graph-section {
   background: white;
   border-radius: 20rpx;
   padding: 40rpx 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(244, 67, 54, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(255, 77, 77, 0.1);
 }
 
 .graph-container {
@@ -308,39 +308,12 @@ const getArticleFileName = (articleId) => {
   height: 500rpx;
 }
 
-/* 连接线 */
+/* 去掉连接线 */
 .connection-line {
-  position: absolute;
-  background: rgba(244, 67, 54, 0.8);
-  border-radius: 2rpx;
-  transform-origin: 0 0;
+  display: none;
 }
 
-.institution-line {
-  width: 180rpx;
-  height: 4rpx;
-  top: 42%;
-  left: 28%;
-  transform: rotate(-20deg);
-}
-
-.competition-line {
-  width: 180rpx;
-  height: 4rpx;
-  top: 42%;
-  right: 28%;
-  transform: rotate(20deg);
-}
-
-.implementation-line {
-  width: 4rpx;
-  height: 160rpx;
-  bottom: 25%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* 节点样式 */
+/* 节点样式 - 简化版 */
 .node {
   position: absolute;
   display: flex;
@@ -350,8 +323,8 @@ const getArticleFileName = (articleId) => {
   text-align: center;
   font-weight: bold;
   color: #2c3e50;
-  border: 4rpx solid #f44336;
-  box-shadow: 0 8rpx 25rpx rgba(244, 67, 54, 0.2);
+  border: 4rpx solid #ff4d4d;
+  box-shadow: 0 8rpx 25rpx rgba(255, 77, 77, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -360,50 +333,84 @@ const getArticleFileName = (articleId) => {
   line-height: 1.4;
 }
 
+/* 中心大球 */
 .core-node {
   width: 180rpx;
   height: 180rpx;
-  background: linear-gradient(135deg, #f44336, #d32f2f);
+  background: linear-gradient(135deg, #ff4d4d, #ff1744);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: 26rpx;
+  z-index: 10;
 }
 
+/* 小球样式 */
 .category-node {
-  width: 140rpx;
-  height: 140rpx;
+  width: 120rpx;
+  height: 120rpx;
   background: white;
+  color: #ff4d4d;
 }
 
+/* 三个小球绕着中心转 */
 .institution-node {
-  top: 20%;
-  left: 20%;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  animation: orbit1 8s linear infinite;
 }
 
 .competition-node {
-  top: 20%;
-  right: 20%;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  animation: orbit2 8s linear infinite;
 }
 
 .implementation-node {
-  bottom: 20%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform-origin: 0 0;
+  animation: orbit3 8s linear infinite;
+}
+
+/* 轨道动画 */
+@keyframes orbit1 {
+  0% {
+    transform: translate(-60rpx, -60rpx) rotate(0deg) translateX(150rpx) rotate(0deg);
+  }
+  100% {
+    transform: translate(-60rpx, -60rpx) rotate(360deg) translateX(150rpx) rotate(-360deg);
+  }
+}
+
+@keyframes orbit2 {
+  0% {
+    transform: translate(-60rpx, -60rpx) rotate(120deg) translateX(150rpx) rotate(-120deg);
+  }
+  100% {
+    transform: translate(-60rpx, -60rpx) rotate(480deg) translateX(150rpx) rotate(-480deg);
+  }
+}
+
+@keyframes orbit3 {
+  0% {
+    transform: translate(-60rpx, -60rpx) rotate(240deg) translateX(150rpx) rotate(-240deg);
+  }
+  100% {
+    transform: translate(-60rpx, -60rpx) rotate(600deg) translateX(150rpx) rotate(-600deg);
+  }
 }
 
 .node:active {
   transform: scale(1.1);
-  box-shadow: 0 12rpx 35rpx rgba(244, 67, 54, 0.4);
+  box-shadow: 0 12rpx 35rpx rgba(255, 77, 77, 0.4);
 }
 
 .core-node:active {
   transform: translate(-50%, -50%) scale(1.1);
-}
-
-.implementation-node:active {
-  transform: translateX(-50%) scale(1.1);
 }
 
 /* 知识体系导航 */
@@ -411,16 +418,16 @@ const getArticleFileName = (articleId) => {
   background: white;
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(244, 67, 54, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(255, 77, 77, 0.1);
 }
 
 .section-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #f44336;
+  color: #ff4d4d;
   margin-bottom: 30rpx;
   padding-bottom: 15rpx;
-  border-bottom: 2rpx solid #f44336;
+  border-bottom: 2rpx solid #ff4d4d;
 }
 
 .category-list {
@@ -430,10 +437,10 @@ const getArticleFileName = (articleId) => {
 }
 
 .category-item {
-  background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(211, 47, 47, 0.1));
+  background: linear-gradient(135deg, rgba(255, 77, 77, 0.1), rgba(255, 77, 77, 0.05));
   border-radius: 16rpx;
   padding: 20rpx;
-  border: 1rpx solid rgba(244, 67, 54, 0.2);
+  border: 1rpx solid rgba(255, 77, 77, 0.2);
 }
 
 .category-header {
@@ -451,7 +458,7 @@ const getArticleFileName = (articleId) => {
 
 .arrow {
   font-size: 24rpx;
-  color: #f44336;
+  color: #ff4d4d;
 }
 
 .subcategory-list {
@@ -469,7 +476,11 @@ const getArticleFileName = (articleId) => {
 }
 
 .subcategory-item:active {
-  background: #f44336;
+  background: #ff4d4d;
+  color: white;
+}
+
+.subcategory-item:active .subcategory-text {
   color: white;
 }
 
@@ -483,7 +494,7 @@ const getArticleFileName = (articleId) => {
   background: white;
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(244, 67, 54, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(255, 77, 77, 0.1);
 }
 
 .timeline-scroll {
@@ -509,9 +520,9 @@ const getArticleFileName = (articleId) => {
   width: 20rpx;
   height: 20rpx;
   border-radius: 50%;
-  background: #f44336;
+  background: #ff4d4d;
   border: 4rpx solid white;
-  box-shadow: 0 0 0 2rpx #f44336;
+  box-shadow: 0 0 0 2rpx #ff4d4d;
   margin-bottom: 15rpx;
 }
 
@@ -529,12 +540,16 @@ const getArticleFileName = (articleId) => {
 
 .timeline-title {
   font-size: 22rpx;
-  color: #f44336;
+  color: #ff4d4d;
   text-align: center;
 }
 
 .timeline-item:active .timeline-dot {
   transform: scale(1.3);
+}
+
+.timeline-item:active .timeline-title {
+  color: #ff4d4d;
 }
 
 /* 详情弹窗 */
@@ -565,7 +580,7 @@ const getArticleFileName = (articleId) => {
   justify-content: space-between;
   align-items: center;
   padding: 30rpx;
-  background: linear-gradient(135deg, #f44336, #d32f2f);
+  background: linear-gradient(135deg, #ff4d4d, #ff1744);
   color: white;
 }
 
@@ -606,17 +621,17 @@ const getArticleFileName = (articleId) => {
 .related-title {
   font-size: 28rpx;
   font-weight: bold;
-  color: #f44336;
+  color: #ff4d4d;
   margin-bottom: 20rpx;
   display: block;
 }
 
 .article-item {
   padding: 20rpx;
-  background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(211, 47, 47, 0.1));
+  background: linear-gradient(135deg, rgba(255, 77, 77, 0.1), rgba(255, 77, 77, 0.05));
   border-radius: 12rpx;
   margin-bottom: 15rpx;
-  border-left: 6rpx solid #f44336;
+  border-left: 6rpx solid #ff4d4d;
 }
 
 .article-title {
@@ -626,6 +641,10 @@ const getArticleFileName = (articleId) => {
 }
 
 .article-item:active {
-  background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(211, 47, 47, 0.2));
+  background: linear-gradient(135deg, rgba(255, 77, 77, 0.2), rgba(255, 77, 77, 0.15));
+}
+
+.article-item:active .article-title {
+  color: #2c3e50;
 }
 </style>

@@ -15,15 +15,8 @@
       </view>
     </view>
 
-    <!-- 聊天窗口 -->
-    <scroll-view
-      scroll-y
-      class="chat-window"
-      :scroll-into-view="scrollIntoView"
-      scroll-with-animation
-      :enhanced="true"
-      :show-scrollbar="false"
-    >
+    <!-- 聊天消息区域 -->
+    <view class="messages-container">
       <view
         v-for="(msg, index) in messages"
         :key="index"
@@ -31,12 +24,12 @@
         class="message-wrapper"
       >
         <view :class="['message', msg.sender]">
-          <view v-if="msg.sender === 'bot'" class="bot-avatar">🤖</view>
+          <view v-if="msg.sender === 'bot'" class="bot-avatar">AI</view>
           <view class="message-content">
             <text v-if="msg.sender === 'user'">{{ msg.text }}</text>
             <mp-html v-else :content="msg.text" :selectable="true" />
           </view>
-          <view v-if="msg.sender === 'user'" class="user-avatar">👤</view>
+          <view v-if="msg.sender === 'user'" class="user-avatar">我</view>
         </view>
       </view>
 
@@ -48,13 +41,13 @@
           <view class="dot"></view>
         </view>
       </view>
-    </scroll-view>
+    </view>
 
-    <!-- 输入框 -->
+    <!-- 输入框 - 固定在底部 -->
     <view class="input-box">
       <input
         v-model="inputText"
-        placeholder="💬 例如：什么是全国统一大市场？"
+        placeholder="例如：什么是全国统一大市场？"
         placeholder-class="input-placeholder"
         confirm-type="send"
         @confirm="sendMessage"
@@ -66,7 +59,7 @@
         class="send-btn"
         :class="{ disabled: loading || !inputText.trim() }"
       >
-        <text>{{ loading ? "⏳" : "📤" }}</text>
+        <text>{{ loading ? "发送中" : "发送" }}</text>
       </button>
     </view>
   </view>
@@ -93,7 +86,7 @@ const messages = ref([
   {
     sender: "bot",
     text: marked(
-      "您好！👋 我是**习思想智能助手**\n\n我可以帮您：\n- 📖 解读全国统一大市场政策\n- 💡 解答理论学习问题\n- 🎯 分析重点难点\n\n请随时向我提问！"
+      "您好！我是**习思想智能助手**\n\n我可以帮您：\n- 解读全国统一大市场政策\n- 解答理论学习问题\n- 分析重点难点\n\n请随时向我提问！"
     ),
   },
 ]);
@@ -136,7 +129,7 @@ const sendMessage = async () => {
     messages.value.push({
       sender: "bot",
       text: marked(
-        "❌ **服务暂时不可用**\n\n请检查：\n- 网络连接是否正常\n- 后端服务是否启动\n\n请稍后再试。"
+        "服务暂时不可用\n\n请检查：\n- 网络连接是否正常\n- 后端服务是否启动\n\n请稍后再试。"
       ),
     });
   } finally {
@@ -152,7 +145,11 @@ const askQuestion = (question) => {
 };
 
 const scrollToBottom = () => {
-  scrollIntoView.value = "msg-" + (messages.value.length - 1);
+  // 移除滚动到底部的功能，因为现在使用原生滚动
+  uni.pageScrollTo({
+    scrollTop: 999999,
+    duration: 300
+  });
 };
 </script>
 
@@ -160,7 +157,7 @@ const scrollToBottom = () => {
 .chat-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f5f5f5;
   padding-bottom: 120rpx; /* 为自定义 TabBar 预留空间 */
 }
@@ -189,9 +186,10 @@ const scrollToBottom = () => {
   transform: scale(0.95);
 }
 
-.chat-window {
+.messages-container {
   flex: 1;
   padding: 20rpx;
+  padding-bottom: 140rpx; /* 为输入框预留空间 */
 }
 
 .message-wrapper {
@@ -210,8 +208,16 @@ const scrollToBottom = () => {
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  font-size: 35rpx;
+  font-size: 24rpx;
   flex-shrink: 0;
+  background-color: #ff4d4d;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.user-avatar {
+  background-color: #666;
 }
 
 .message-content {
@@ -282,12 +288,17 @@ const scrollToBottom = () => {
 }
 
 .input-box {
+  position: fixed;
+  bottom: 120rpx; /* 在TabBar上方 */
+  left: 0;
+  right: 0;
   display: flex;
   padding: 20rpx;
   background-color: white;
   border-top: 1rpx solid #eee;
   gap: 20rpx;
   box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+  z-index: 100;
 }
 
 .input-box input {
@@ -304,14 +315,14 @@ const scrollToBottom = () => {
 }
 
 .send-btn {
-  width: 100rpx;
+  width: 120rpx;
   height: 80rpx;
   padding: 0;
   background: linear-gradient(135deg, #ff4d4d, #cc0000);
   color: white;
   border: none;
   border-radius: 30rpx;
-  font-size: 35rpx;
+  font-size: 24rpx;
   display: flex;
   align-items: center;
   justify-content: center;
