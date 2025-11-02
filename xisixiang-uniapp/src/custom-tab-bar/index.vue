@@ -86,12 +86,12 @@ const switchTab = (index) => {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 120rpx;
+  height: 100rpx;
   background-color: #ffffff;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10rpx 20rpx;
+  padding: 5rpx 10rpx;
   box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
   z-index: 9999;
 }
@@ -101,7 +101,7 @@ const switchTab = (index) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5rpx;
+  padding: 0;
 }
 
 .tab-item-bg {
@@ -109,11 +109,12 @@ const switchTab = (index) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 15rpx 25rpx;
-  border-radius: 20rpx;
+  padding: 8rpx 12rpx;
+  border-radius: 15rpx;
   background-color: #f5f5f5;
   transition: all 0.3s ease;
-  min-width: 160rpx;
+  min-width: 120rpx;
+  max-width: 160rpx;
 }
 
 .tab-item-bg.active {
@@ -123,16 +124,17 @@ const switchTab = (index) => {
 }
 
 .tab-emoji {
-  font-size: 44rpx;
-  margin-bottom: 5rpx;
+  font-size: 36rpx;
+  margin-bottom: 4rpx;
   display: block;
 }
 
 .tab-text {
-  font-size: 26rpx;
+  font-size: 22rpx;
   font-weight: 500;
   color: #666666;
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .tab-item-bg.active .tab-text {
