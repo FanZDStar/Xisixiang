@@ -223,14 +223,35 @@ function rollDice() {
   isMoving.value = true;
   showDice.value = true;
 
-  // 随机生成点数（1-6）
-  diceValue.value = Math.floor(Math.random() * 6) + 1;
+  // 震动反馈
+  uni.vibrateShort({ type: "medium" });
 
-  // 1秒后开始移动
-  setTimeout(() => {
-    showDice.value = false;
-    movePlayer(diceValue.value);
-  }, 1000);
+  // 最终点数
+  const finalValue = Math.floor(Math.random() * 6) + 1;
+
+  // 数字快速跳动效果（模拟骰子滚动）
+  let count = 0;
+  const rollInterval = setInterval(() => {
+    diceValue.value = Math.floor(Math.random() * 6) + 1;
+    count++;
+
+    // 跳动15次后停止
+    if (count >= 15) {
+      clearInterval(rollInterval);
+      diceValue.value = finalValue;
+
+      // 最终结果震动反馈
+      setTimeout(() => {
+        uni.vibrateShort({ type: "heavy" });
+      }, 100);
+
+      // 1.5秒后开始移动
+      setTimeout(() => {
+        showDice.value = false;
+        movePlayer(finalValue);
+      }, 1500);
+    }
+  }, 80); // 每80ms变化一次数字
 }
 
 // 移动玩家
@@ -695,11 +716,13 @@ function getEffectText(event) {
   border-radius: 30rpx;
   box-shadow: 0 10rpx 40rpx rgba(0, 0, 0, 0.3);
   z-index: 999;
-  animation: diceRoll 0.5s ease-in-out;
+  animation: dicePopIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .dice {
   font-size: 120rpx;
+  animation: diceRotate 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  display: inline-block;
 }
 
 .dice-value {
@@ -707,21 +730,56 @@ function getEffectText(event) {
   font-weight: bold;
   color: #ff4d4d;
   margin-top: 20rpx;
+  animation: numberPulse 0.3s ease-in-out;
+  text-shadow: 0 2rpx 8rpx rgba(255, 77, 77, 0.3);
 }
 
-@keyframes diceRoll {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  25% {
-    transform: translate(-50%, -50%) rotate(90deg);
+/* 骰子容器弹出动画 */
+@keyframes dicePopIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0;
   }
   50% {
-    transform: translate(-50%, -50%) rotate(180deg);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* 骰子旋转翻滚动画 */
+@keyframes diceRotate {
+  0% {
+    transform: rotate(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: rotate(90deg) rotateY(90deg);
+  }
+  50% {
+    transform: rotate(180deg) rotateY(180deg);
   }
   75% {
-    transform: translate(-50%, -50%) rotate(270deg);
+    transform: rotate(270deg) rotateY(270deg);
+  }
+  100% {
+    transform: rotate(360deg) rotateY(360deg);
+  }
+}
+
+/* 数字脉冲动画 */
+@keyframes numberPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
