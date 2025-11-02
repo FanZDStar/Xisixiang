@@ -82,14 +82,16 @@ const switchTab = (index) => {
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
   height: 100rpx;
   background-color: #ffffff;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 5rpx 10rpx;
+  padding: 8rpx 16rpx;
   box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
   z-index: 9999;
+  box-sizing: border-box;
 }
 
 .tab-item {
@@ -97,7 +99,8 @@ const switchTab = (index) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 0 4rpx;
+  max-width: 25%;
 }
 
 .tab-item-bg {
@@ -105,50 +108,32 @@ const switchTab = (index) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8rpx 12rpx;
-  border-radius: 15rpx;
-  background-color: #f5f5f5;
-  transition: all 0.3s ease;
-  min-width: 120rpx;
-  max-width: 160rpx;
+  padding: 8rpx 6rpx;
+  border-radius: 16rpx;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 140rpx;
+  min-width: 80rpx;
 }
 
 .tab-item-bg.active {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 16rpx 0 8rpx 0;
-    border-radius: 32rpx;
-    transition: background 0.2s, box-shadow 0.2s;
-  }
-  .tab-item-bg.active {
-    background: linear-gradient(90deg, #ff4d4d 0%, #fff5f5 100%);
-    box-shadow: 0 4rpx 16rpx rgba(255,77,77,0.13);
-  }
-  .tab-text {
-    font-size: 28rpx;
-    color: #333;
-    font-weight: 500;
-    letter-spacing: 1rpx;
-    margin-top: 2rpx;
-  }
-  .tab-item-bg.active .tab-text {
-    color: #d32f2f;
-    font-weight: 700;
-    text-shadow: 0 2rpx 8rpx rgba(255,77,77,0.10);
+  background: linear-gradient(90deg, #ff4d4d 0%, #fff5f5 100%);
+  box-shadow: 0 2rpx 8rpx rgba(255,77,77,0.15);
 }
 
 .tab-text {
   font-size: 22rpx;
   font-weight: 500;
   color: #666666;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .tab-item-bg.active .tab-text {
-  color: #ffffff;
-  font-weight: bold;
+  color: #d32f2f;
+  font-weight: 600;
 }
 </style>
