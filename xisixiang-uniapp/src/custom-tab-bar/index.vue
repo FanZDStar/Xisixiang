@@ -8,7 +8,7 @@
       @click="switchTab(index)"
     >
       <view class="tab-item-bg" :class="{ active: currentIndex === index }">
-        <text class="tab-emoji">{{ item.emoji }}</text>
+          <!-- 去除emoji，仅保留文字 -->
         <text class="tab-text">{{ item.text }}</text>
       </view>
     </view>
@@ -24,22 +24,18 @@ const tabList = [
   {
     pagePath: "/pages/chat/chat",
     text: "智能问答",
-    emoji: "💬",
   },
   {
     pagePath: "/pages/quiz/quiz",
     text: "习题训练",
-    emoji: "📝",
   },
   {
     pagePath: "/pages/theory/theory",
     text: "理论学习",
-    emoji: "📚",
   },
   {
     pagePath: "/pages/game/game",
     text: "实践闯关",
-    emoji: "🎮",
   },
 ];
 
@@ -117,15 +113,29 @@ const switchTab = (index) => {
 }
 
 .tab-item-bg.active {
-  background: linear-gradient(135deg, #ff4d4d, #cc0000);
-  transform: scale(1.05);
-  box-shadow: 0 4rpx 15rpx rgba(255, 77, 77, 0.3);
-}
-
-.tab-emoji {
-  font-size: 44rpx;
-  margin-bottom: 5rpx;
-  display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16rpx 0 8rpx 0;
+    border-radius: 32rpx;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .tab-item-bg.active {
+    background: linear-gradient(90deg, #ff4d4d 0%, #fff5f5 100%);
+    box-shadow: 0 4rpx 16rpx rgba(255,77,77,0.13);
+  }
+  .tab-text {
+    font-size: 28rpx;
+    color: #333;
+    font-weight: 500;
+    letter-spacing: 1rpx;
+    margin-top: 2rpx;
+  }
+  .tab-item-bg.active .tab-text {
+    color: #d32f2f;
+    font-weight: 700;
+    text-shadow: 0 2rpx 8rpx rgba(255,77,77,0.10);
 }
 
 .tab-text {

@@ -161,7 +161,7 @@ onMounted(async () => {
     // 加载棋盘配置
     const boardRes = await new Promise((resolve, reject) => {
       uni.request({
-        url: "http://127.0.0.1:5122/static/game/board-config.json",
+        url: "https://xisixiang.nuyoahming.xyz/static/game/board-config.json",
         method: "GET",
         success: (res) => {
           console.log("棋盘数据加载结果:", res);
@@ -183,7 +183,7 @@ onMounted(async () => {
     // 加载题目数据
     const questionsRes = await new Promise((resolve, reject) => {
       uni.request({
-        url: "http://127.0.0.1:5122/static/game/questions-categorized.json",
+        url: "https://xisixiang.nuyoahming.xyz/static/game/questions-categorized.json",
         method: "GET",
         success: (res) => {
           console.log("题目数据加载结果:", res);
