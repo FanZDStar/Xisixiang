@@ -39,6 +39,14 @@
         "navigationBarBackgroundColor": "#ff4d4d",
         "navigationBarTextStyle": "white"
       }
+    },
+    {
+      "path": "pages/game/game",
+      "style": {
+        "navigationBarTitleText": "市场建设大富翁",
+        "navigationBarBackgroundColor": "#ff4d4d",
+        "navigationBarTextStyle": "white"
+      }
     }
   ],
   "tabBar": {
@@ -61,6 +69,10 @@
       {
         "pagePath": "pages/theory/theory",
         "text": "理论学习"
+      },
+      {
+        "pagePath": "pages/game/game",
+        "text": "实践闯关"
       }
     ]
   },

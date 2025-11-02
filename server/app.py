@@ -66,5 +66,24 @@ def serve_theory_file(filename):
         print(f"[静态文件] 错误: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
+# 静态文件服务 - 提供游戏配置文件
+@app.route('/static/game/<path:filename>', methods=['GET'])
+def serve_game_file(filename):
+    """提供游戏配置文件（JSON格式）"""
+    try:
+        # server/static/game/ 目录
+        game_dir = os.path.join(os.path.dirname(__file__), 'static', 'game')
+        
+        print(f"[游戏文件] 请求文件: {filename}")
+        print(f"[游戏文件] 目录: {game_dir}")
+        
+        return send_from_directory(game_dir, filename, mimetype='application/json; charset=utf-8')
+    except FileNotFoundError:
+        print(f"[游戏文件] 文件不存在: {filename}")
+        return jsonify({'error': '文件不存在'}), 404
+    except Exception as e:
+        print(f"[游戏文件] 错误: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5122)

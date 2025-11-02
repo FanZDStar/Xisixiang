@@ -24,14 +24,22 @@ const tabList = [
   {
     pagePath: "/pages/chat/chat",
     text: "智能问答",
+    emoji: "💬",
   },
   {
     pagePath: "/pages/quiz/quiz",
     text: "习题训练",
+    emoji: "📝",
   },
   {
     pagePath: "/pages/theory/theory",
     text: "理论学习",
+    emoji: "📚",
+  },
+  {
+    pagePath: "/pages/game/game",
+    text: "实践闯关",
+    emoji: "🎮",
   },
 ];
 

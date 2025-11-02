@@ -100,7 +100,6 @@ def create_chat_completion(messages: List[ClientMessage]) -> ChatResult:
     """Send chat completion request to DashScope and return model reply."""
     try:
         formatted_messages = _normalise_messages(messages)
-        print("Formatted Messages:", formatted_messages)
         # 获取最后一条用户消息进行相关性检查
         last_user_message = None
         for msg in reversed(formatted_messages):

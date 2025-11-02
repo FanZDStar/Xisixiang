@@ -1,0 +1,430 @@
+{
+  "boardSize": 51,
+  "cells": [
+    {
+      "id": 0,
+      "type": "start",
+      "name": "起点",
+      "description": "市场建设启动",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 1,
+      "type": "blue",
+      "name": "制度统一",
+      "description": "完善市场基础制度",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 2,
+      "type": "blue",
+      "name": "规则完善",
+      "description": "统一市场规则",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 3,
+      "type": "blue",
+      "name": "标准建设",
+      "description": "推进标准统一",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 4,
+      "type": "blue",
+      "name": "产权保护",
+      "description": "强化产权保护",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 5,
+      "type": "blue",
+      "name": "信用体系",
+      "description": "建设信用体系",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 6,
+      "type": "fortune",
+      "name": "机遇",
+      "description": "获得政策支持",
+      "color": "#ffd700"
+    },
+    {
+      "id": 7,
+      "type": "green",
+      "name": "物流联通",
+      "description": "畅通物流网络",
+      "color": "#50c878"
+    },
+    {
+      "id": 8,
+      "type": "green",
+      "name": "信息共享",
+      "description": "推进信息互联",
+      "color": "#50c878"
+    },
+    {
+      "id": 9,
+      "type": "green",
+      "name": "设施升级",
+      "description": "升级市场设施",
+      "color": "#50c878"
+    },
+    {
+      "id": 10,
+      "type": "green",
+      "name": "里程碑",
+      "description": "制度建设完成",
+      "color": "#50c878"
+    },
+    {
+      "id": 11,
+      "type": "green",
+      "name": "平台建设",
+      "description": "搭建统一平台",
+      "color": "#50c878"
+    },
+    {
+      "id": 12,
+      "type": "challenge",
+      "name": "挑战",
+      "description": "遭遇地方保护",
+      "color": "#999"
+    },
+    {
+      "id": 13,
+      "type": "yellow",
+      "name": "劳动力",
+      "description": "促进人才流动",
+      "color": "#ffd700"
+    },
+    {
+      "id": 14,
+      "type": "yellow",
+      "name": "资本市场",
+      "description": "优化资本配置",
+      "color": "#ffd700"
+    },
+    {
+      "id": 15,
+      "type": "yellow",
+      "name": "土地要素",
+      "description": "盘活土地资源",
+      "color": "#ffd700"
+    },
+    {
+      "id": 16,
+      "type": "yellow",
+      "name": "技术市场",
+      "description": "促进技术交易",
+      "color": "#ffd700"
+    },
+    {
+      "id": 17,
+      "type": "yellow",
+      "name": "数据要素",
+      "description": "培育数据市场",
+      "color": "#ffd700"
+    },
+    {
+      "id": 18,
+      "type": "fortune",
+      "name": "机遇",
+      "description": "试点城市成功",
+      "color": "#ffd700"
+    },
+    {
+      "id": 19,
+      "type": "red",
+      "name": "监管统一",
+      "description": "统一市场监管",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 20,
+      "type": "red",
+      "name": "里程碑",
+      "description": "设施联通完成",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 21,
+      "type": "red",
+      "name": "执法协同",
+      "description": "加强执法协作",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 22,
+      "type": "red",
+      "name": "反垄断",
+      "description": "打击垄断行为",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 23,
+      "type": "red",
+      "name": "公平竞争",
+      "description": "维护公平竞争",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 24,
+      "type": "challenge",
+      "name": "挑战",
+      "description": "市场壁垒阻碍",
+      "color": "#999"
+    },
+    {
+      "id": 25,
+      "type": "blue",
+      "name": "准入制度",
+      "description": "完善准入机制",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 26,
+      "type": "blue",
+      "name": "负面清单",
+      "description": "实施负面清单",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 27,
+      "type": "blue",
+      "name": "法治建设",
+      "description": "强化法治保障",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 28,
+      "type": "blue",
+      "name": "政策协同",
+      "description": "推进政策统一",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 29,
+      "type": "blue",
+      "name": "机制创新",
+      "description": "创新体制机制",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 30,
+      "type": "fortune",
+      "name": "机遇",
+      "description": "区域协作突破",
+      "color": "#ffd700"
+    },
+    {
+      "id": 31,
+      "type": "green",
+      "name": "交通网络",
+      "description": "完善交通体系",
+      "color": "#50c878"
+    },
+    {
+      "id": 32,
+      "type": "green",
+      "name": "数字基建",
+      "description": "建设数字设施",
+      "color": "#50c878"
+    },
+    {
+      "id": 33,
+      "type": "green",
+      "name": "流通体系",
+      "description": "优化流通网络",
+      "color": "#50c878"
+    },
+    {
+      "id": 34,
+      "type": "green",
+      "name": "配送升级",
+      "description": "提升配送效率",
+      "color": "#50c878"
+    },
+    {
+      "id": 35,
+      "type": "green",
+      "name": "仓储现代化",
+      "description": "现代化仓储",
+      "color": "#50c878"
+    },
+    {
+      "id": 36,
+      "type": "challenge",
+      "name": "挑战",
+      "description": "执行力度不足",
+      "color": "#999"
+    },
+    {
+      "id": 37,
+      "type": "yellow",
+      "name": "要素流动",
+      "description": "促进要素流动",
+      "color": "#ffd700"
+    },
+    {
+      "id": 38,
+      "type": "yellow",
+      "name": "市场配置",
+      "description": "市场化配置",
+      "color": "#ffd700"
+    },
+    {
+      "id": 39,
+      "type": "yellow",
+      "name": "价格机制",
+      "description": "完善价格机制",
+      "color": "#ffd700"
+    },
+    {
+      "id": 40,
+      "type": "yellow",
+      "name": "里程碑",
+      "description": "要素市场成型",
+      "color": "#ffd700"
+    },
+    {
+      "id": 41,
+      "type": "fortune",
+      "name": "机遇",
+      "description": "创新经验推广",
+      "color": "#ffd700"
+    },
+    {
+      "id": 42,
+      "type": "red",
+      "name": "协同监管",
+      "description": "建立协同机制",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 43,
+      "type": "red",
+      "name": "跨区执法",
+      "description": "推进跨区执法",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 44,
+      "type": "red",
+      "name": "信息共享",
+      "description": "监管信息共享",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 45,
+      "type": "red",
+      "name": "执法规范",
+      "description": "规范执法行为",
+      "color": "#ff4d4d"
+    },
+    {
+      "id": 46,
+      "type": "fortune",
+      "name": "机遇",
+      "description": "市场活力提升",
+      "color": "#ffd700"
+    },
+    {
+      "id": 47,
+      "type": "blue",
+      "name": "制度完善",
+      "description": "完善制度体系",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 48,
+      "type": "blue",
+      "name": "规则优化",
+      "description": "优化市场规则",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 49,
+      "type": "blue",
+      "name": "体系建成",
+      "description": "市场体系建成",
+      "color": "#4a90e2"
+    },
+    {
+      "id": 50,
+      "type": "end",
+      "name": "终点",
+      "description": "全国统一大市场建成",
+      "color": "#ffd700"
+    }
+  ],
+  "fortuneEvents": [
+    {
+      "id": 1,
+      "title": "🎉 中央政策支持",
+      "description": "国务院发布《加快建设全国统一大市场的意见》，市场建设提速！",
+      "effect": "forward",
+      "value": 3,
+      "points": 50
+    },
+    {
+      "id": 2,
+      "title": "🏆 试点城市成功",
+      "description": "您负责的试点城市市场统一度提升20%，获得表彰！",
+      "effect": "points",
+      "value": 0,
+      "points": 100
+    },
+    {
+      "id": 3,
+      "title": "💡 创新突破",
+      "description": "成功建立跨区域市场监管协同机制，经验全国推广！",
+      "effect": "forward",
+      "value": 2,
+      "points": 50
+    },
+    {
+      "id": 4,
+      "title": "🤝 区域协作",
+      "description": "长三角、珠三角等区域率先实现市场一体化！",
+      "effect": "skip",
+      "value": 1,
+      "points": 30
+    },
+    {
+      "id": 5,
+      "title": "📈 市场活力提升",
+      "description": "全国市场主体突破1.5亿户，营商环境持续优化！",
+      "effect": "forward",
+      "value": 4,
+      "points": 80
+    }
+  ],
+  "challengeEvents": [
+    {
+      "id": 1,
+      "title": "⚠️ 地方保护主义",
+      "description": "某省份设置不合理的市场准入限制，需要协调处理...",
+      "effect": "backward",
+      "value": 2,
+      "points": -30
+    },
+    {
+      "id": 2,
+      "title": "🚧 市场壁垒",
+      "description": "发现部分地区存在行政垄断行为，市场分割严重。",
+      "effect": "pause",
+      "value": 1,
+      "points": -20
+    },
+    {
+      "id": 3,
+      "title": "📉 执行不力",
+      "description": "部分政策执行打折扣，统一大市场建设进度放缓。",
+      "effect": "points",
+      "value": 0,
+      "points": -50
+    }
+  ]
+}
