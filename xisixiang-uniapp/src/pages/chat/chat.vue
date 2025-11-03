@@ -67,7 +67,7 @@
 
 <script setup>
 import { ref, nextTick } from "vue";
-import { onShow } from "@dcloudio/uni-app";
+import { onShow, onLoad, onShareAppMessage, onShareTimeline } from "@dcloudio/uni-app";
 import { chatCompletion } from "../utils/request.js";
 import { marked } from "marked";
 
@@ -80,6 +80,32 @@ marked.setOptions({
 // 页面显示时更新 TabBar 状态
 onShow(() => {
   uni.$emit("updateTabBar");
+});
+
+// 分享配置（可根据页面状态动态调整）
+const shareTitle = "智能助手 | 理论问答";
+const sharePath = "/pages/chat/chat?from=share";
+
+onLoad(() => {
+  // 打开右上角分享与朋友圈
+  uni.showShareMenu({
+    withShareTicket: true,
+    menus: ["shareAppMessage", "shareTimeline"],
+  });
+});
+
+onShareAppMessage(() => {
+  return {
+    title: shareTitle,
+    path: sharePath,
+  };
+});
+
+onShareTimeline(() => {
+  return {
+    title: shareTitle,
+    query: "from=timeline",
+  };
 });
 
 const messages = ref([

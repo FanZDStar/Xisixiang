@@ -5,7 +5,9 @@
       "style": {
         "navigationBarTitleText": "智能问答",
         "navigationBarBackgroundColor": "#ff4d4d",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {
@@ -37,7 +39,9 @@
       "style": {
         "navigationBarTitleText": "知识图谱",
         "navigationBarBackgroundColor": "#ff4d4d",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "enableShareAppMessage": true,
+        "enableShareTimeline": true
       }
     },
     {

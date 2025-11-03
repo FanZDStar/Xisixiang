@@ -118,9 +118,34 @@
 
 <script setup>
 import { ref } from "vue";
+import { onLoad, onShareAppMessage, onShareTimeline } from "@dcloudio/uni-app";
 
 const openCategoryIndex = ref(null);
 const selectedNode = ref(null);
+// 分享配置
+const shareTitle = "知识图谱 | 全国统一大市场";
+const sharePath = "/pages/knowledge-graph/knowledge-graph?from=share";
+
+onLoad(() => {
+  uni.showShareMenu({
+    withShareTicket: true,
+    menus: ["shareAppMessage", "shareTimeline"],
+  });
+});
+
+onShareAppMessage(() => {
+  return {
+    title: shareTitle,
+    path: sharePath,
+  };
+});
+
+onShareTimeline(() => {
+  return {
+    title: shareTitle,
+    query: "from=timeline",
+  };
+});
 
 // 知识体系分类
 const categories = [
