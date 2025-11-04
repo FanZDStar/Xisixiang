@@ -37,6 +37,10 @@ const tabList = [
     pagePath: "/pages/game/game",
     text: "实践闯关",
   },
+  {
+    pagePath: "/pages/original-works/index",
+    text: "原创作品",
+  },
 ];
 
 // 更新当前选中的 tab (可以被外部调用)
@@ -100,7 +104,7 @@ const switchTab = (index) => {
   justify-content: center;
   align-items: center;
   padding: 0 4rpx;
-  max-width: 25%;
+  max-width: 20%;
 }
 
 .tab-item-bg {

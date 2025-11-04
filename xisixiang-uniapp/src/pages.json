@@ -51,6 +51,38 @@
         "navigationBarBackgroundColor": "#ff4d4d",
         "navigationBarTextStyle": "white"
       }
+    },
+    {
+      "path": "pages/original-works/index",
+      "style": {
+        "navigationBarTitleText": "原创作品",
+        "navigationBarBackgroundColor": "#ff4d4d",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/original-works/song",
+      "style": {
+        "navigationBarTitleText": "原创歌曲",
+        "navigationBarBackgroundColor": "#ff4d4d",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/original-works/video",
+      "style": {
+        "navigationBarTitleText": "AI视频",
+        "navigationBarBackgroundColor": "#ff4d4d",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/original-works/xiangsheng",
+      "style": {
+        "navigationBarTitleText": "传统相声",
+        "navigationBarBackgroundColor": "#ff4d4d",
+        "navigationBarTextStyle": "white"
+      }
     }
   ],
   "tabBar": {
@@ -77,6 +109,10 @@
       {
         "pagePath": "pages/game/game",
         "text": "实践闯关"
+      },
+      {
+        "pagePath": "pages/original-works/index",
+        "text": "原创作品"
       }
     ]
   },
