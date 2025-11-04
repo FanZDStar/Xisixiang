@@ -60,8 +60,13 @@
         </view>
         
         <!-- 默认提示（音乐未开始时） -->
-        <view v-if="currentLyricIndex < 0" class="lyric-line current-lyric">
+        <view v-if="!isMusicPlaying && currentLyricIndex < 0" class="lyric-line current-lyric">
           点击封面开始播放
+        </view>
+        
+        <!-- 播放中但无歌词（纯音乐阶段） -->
+        <view v-if="isMusicPlaying && currentLyricIndex < 0" class="lyric-line instrumental-hint">
+          ♪ 前奏演奏中 ♪
         </view>
       </view>
     </view>
@@ -224,7 +229,9 @@ onUnmounted(() => {
 .prev-lyric{ color: rgba(255,255,255,0.4); font-size:28rpx; opacity:0; animation:fadeInUp 0.6s ease-out forwards }
 .current-lyric{ color:#fff; font-size:40rpx; font-weight:bold; opacity:0; animation:scaleIn 0.6s ease-out forwards; letter-spacing:2rpx }
 .next-lyric{ color: rgba(255,255,255,0.4); font-size:28rpx; opacity:0; animation:fadeInDown 0.6s ease-out forwards }
+.instrumental-hint{ color: rgba(255,255,255,0.7); font-size:32rpx; font-style:italic; opacity:0; animation:pulse 2s ease-in-out infinite }
 @keyframes fadeInUp{ 0%{ opacity:0; transform:translateY(20rpx) } 100%{ opacity:1; transform:translateY(0) } }
 @keyframes scaleIn{ 0%{ opacity:0; transform:scale(0.9) } 50%{ transform:scale(1.05) } 100%{ opacity:1; transform:scale(1) } }
 @keyframes fadeInDown{ 0%{ opacity:0; transform:translateY(-20rpx) } 100%{ opacity:1; transform:translateY(0) } }
+@keyframes pulse{ 0%, 100%{ opacity:0.5; transform:scale(1) } 50%{ opacity:1; transform:scale(1.05) } }
 </style>
