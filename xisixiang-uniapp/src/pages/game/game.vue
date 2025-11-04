@@ -603,7 +603,7 @@ function getEffectText(event) {
 
 .board-wrapper {
   margin: 20rpx;
-  padding: 20rpx;
+  padding: 13rpx;
   background: white;
   border-radius: 20rpx;
   box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.1);
