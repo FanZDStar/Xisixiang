@@ -68,19 +68,19 @@ const modules = [
     name: "原创歌曲",
     desc: "《破壁前行》——统一大市场主题歌曲",
     iconImage: "/static/icon-song.png",
-    path: "/pages/original-works/song"
+    path: "/pages/original-works-sub/song"
   },
   {
     name: "AI视频",
     desc: "人工智能生成视频作品",
     iconImage: "/static/icon-video.png",
-    path: "/pages/original-works/video"
+    path: "/pages/original-works-sub/video"
   },
   {
     name: "传统相声",
     desc: "传统艺术与时代主题结合",
     iconImage: "/static/icon-xiangsheng.png",
-    path: "/pages/original-works/xiangsheng"
+    path: "/pages/original-works-sub/xiangsheng"
   }
 ];
 

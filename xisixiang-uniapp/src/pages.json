@@ -59,30 +59,37 @@
         "navigationBarBackgroundColor": "#ff4d4d",
         "navigationBarTextStyle": "white"
       }
-    },
+    }
+  ],
+  "subPackages": [
     {
-      "path": "pages/original-works/song",
-      "style": {
-        "navigationBarTitleText": "原创歌曲",
-        "navigationBarBackgroundColor": "#ff4d4d",
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
-      "path": "pages/original-works/video",
-      "style": {
-        "navigationBarTitleText": "AI视频",
-        "navigationBarBackgroundColor": "#ff4d4d",
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
-      "path": "pages/original-works/xiangsheng",
-      "style": {
-        "navigationBarTitleText": "传统相声",
-        "navigationBarBackgroundColor": "#ff4d4d",
-        "navigationBarTextStyle": "white"
-      }
+      "root": "pages/original-works-sub",
+      "pages": [
+        {
+          "path": "song",
+          "style": {
+            "navigationBarTitleText": "原创歌曲",
+            "navigationBarBackgroundColor": "#ff4d4d",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "video",
+          "style": {
+            "navigationBarTitleText": "AI视频",
+            "navigationBarBackgroundColor": "#ff4d4d",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "xiangsheng",
+          "style": {
+            "navigationBarTitleText": "传统相声",
+            "navigationBarBackgroundColor": "#ff4d4d",
+            "navigationBarTextStyle": "white"
+          }
+        }
+      ]
     }
   ],
   "tabBar": {
